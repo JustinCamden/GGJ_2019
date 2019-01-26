@@ -58,12 +58,12 @@ public class PlayerInputManager : MonoBehaviour {
         localPlayerActions.moveLeft.AddDefaultBinding(InputControlType.DPadLeft);
 
         // Jump
-        localPlayerActions.jump.AddDefaultBinding(Key.Space);
-        localPlayerActions.jump.AddDefaultBinding(InputControlType.Action1);
+        localPlayerActions.jump.AddDefaultBinding(Key.E);
+        localPlayerActions.jump.AddDefaultBinding(InputControlType.Action3);
 
         // Interact
-        localPlayerActions.interact.AddDefaultBinding(Key.E);
-        localPlayerActions.interact.AddDefaultBinding(InputControlType.Action3);
+        localPlayerActions.interact.AddDefaultBinding(Key.Space);
+        localPlayerActions.interact.AddDefaultBinding(InputControlType.Action1);
     }
 	
 	// Update is called once per frame

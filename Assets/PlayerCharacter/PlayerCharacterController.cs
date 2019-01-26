@@ -227,7 +227,7 @@ public class PlayerCharacterController : MonoBehaviour {
         // Interact with selected interactable if appropriate
         if (playerActions.interact.WasPressed && selectedInteractable)
         {
-            selectedInteractable.Interact();
+            selectedInteractable.TryInteract();
         }
     }
 

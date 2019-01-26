@@ -10,11 +10,16 @@ public class MaterialChanger : BaseInteraction {
 
 	public override void Interact()
 	{
-//		if (currentMat  paints.)
-	}
+		if (currentMat >= paints.Count)
+		{
+			currentMat = 0;
+		}
 
-	public IEnumerator ChangeMat(Material mat)
-	{
-		yield return null;
+		foreach (GameObject obj in objectsToPaint)
+		{
+			obj.GetComponent<MeshRenderer>().material = paints[currentMat];
+		}
+
+		currentMat++;
 	}
 }

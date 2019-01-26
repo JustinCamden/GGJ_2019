@@ -24,6 +24,37 @@ public class BaseInteraction : MonoBehaviour {
 	
 	private InputDevice controller;
 	private  AudioSource source;
+
+	public void TryInteract()
+	{
+		// checks to see if it should Start a Minigame, Start a Dialogue, Darken the screen, or just Interact. 
+		if (interactEnabled)
+		{
+			if (soundShouldPlay)
+			{
+				source.Play();
+			}
+
+			if (shouldStartMinigame)
+			{
+				StartMinigame();
+			}
+			else if (shouldRunDialogue)
+			{
+				DialogueStart();
+				interactEnabled = false;
+			}
+			else if (shouldFadeInOut)
+			{
+				ScreenDarkener.Instance.Darken(this);
+				interactEnabled = false;
+			}
+			else
+			{
+				Interact();
+			}
+		}
+	}
 	
 	public virtual void Interact () {
 		// do stuff here!
@@ -65,32 +96,6 @@ public class BaseInteraction : MonoBehaviour {
 				interactSprite.SetActive(true);
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				// checks to see if it should Start a Minigame, Start a Dialogue, Darken the screen, or just Interact. 
-				if (soundShouldPlay)
-				{
-					source.Play();
-				}
-				
-				if (shouldStartMinigame)
-				{
-					StartMinigame();
-				}
-				else if (shouldRunDialogue)
-				{
-					DialogueStart();
-					interactEnabled = false;
-				}
-				else if (shouldFadeInOut)
-				{
-					ScreenDarkener.Instance.Darken(this);
-				}
-				else
-				{
-					Interact();
-				}
-			}
 		}
 		else
 		{
