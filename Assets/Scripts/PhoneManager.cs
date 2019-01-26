@@ -54,7 +54,7 @@ public class PhoneManager : MonoBehaviour {
 	void Update () {
 
 		if(active){
-			if(primaryPhoneScreen.active){
+			if(primaryPhoneScreen.activeInHierarchy){
 				if(Input.GetKeyDown(primaryButton)){
 					switch(mainIndex){
 						case(0): //messages
@@ -105,7 +105,7 @@ public class PhoneManager : MonoBehaviour {
 
 
 
-			} else if(secondaryNotes.active){
+			} else if(secondaryNotes.activeInHierarchy){
 				if(Input.GetKeyDown(KeyCode.A)){
 					noteIndex -= 1;
 					if(noteIndex < 0){
@@ -122,7 +122,7 @@ public class PhoneManager : MonoBehaviour {
 				noteContentField.text = noteList[noteIndex].noteContent;
 
 
-			} else if(secondaryMessages.active){
+			} else if(secondaryMessages.activeInHierarchy){
 
 				
 				//instant all currently-unlocked text messages
@@ -135,7 +135,7 @@ public class PhoneManager : MonoBehaviour {
 					}
 				}
 
-			} else if(secondaryExit.active){
+			} else if(secondaryExit.activeInHierarchy){
 
 				if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S)){
 					exitIndex = !exitIndex;
