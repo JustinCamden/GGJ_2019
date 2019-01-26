@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 143659493827105398}
   - component: {fileID: 114765812413369800}
   - component: {fileID: 65981552153934588}
+  - component: {fileID: 114454032915082310}
   m_Layer: 0
   m_Name: PlayerCharacterPrefab
   m_TagString: Untagged
@@ -272,6 +273,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5f486447fca754ca396b3188a0139d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114454032915082310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920232205147380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aae8e0d0172b41f1b483ca22254374a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIWindow: {fileID: 0}
+  textMesh: {fileID: 0}
+  currentWindow: 0
+  currentWindows: []
 --- !u!114 &114765812413369800
 MonoBehaviour:
   m_ObjectHideFlags: 1
