@@ -23,7 +23,7 @@ public class ToggleLight : BaseInteraction
     // Use this for initialization
     void Start()
     {
-        light_1 = GetComponent<Light>();
+  
     }
 
     // Update is called once per frame

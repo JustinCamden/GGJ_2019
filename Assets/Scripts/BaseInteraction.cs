@@ -23,7 +23,7 @@ public class BaseInteraction : MonoBehaviour {
 	
 	
 	private InputDevice controller;
-	private AudioSource source;
+	private  AudioSource source;
 	
 	public virtual void Interact () {
 		// do stuff here!
@@ -41,7 +41,7 @@ public class BaseInteraction : MonoBehaviour {
 		controller = InputManager.ActiveDevice;
 	}
 
-	private void Start()
+	void Awake()
 	{
 		if (soundShouldPlay)
 		{
