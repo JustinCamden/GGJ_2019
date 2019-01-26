@@ -19,6 +19,9 @@ public class BaseInteraction : MonoBehaviour {
 	[Tooltip("whether or not this interaction should cause the screen to blackout and fade back in")]
 	public bool shouldFadeInOut;
 
+	[Tooltip("does this interaction advance the game?")]
+	public bool isKeyInteraction;
+	
 	public List<DialogueRunner.ConversationWindow> conversationWindows;
 	
 	
@@ -52,6 +55,11 @@ public class BaseInteraction : MonoBehaviour {
 			else
 			{
 				Interact();
+			}
+
+			if (isKeyInteraction)
+			{
+				NPCArrival.Instance.InteractionFinished();
 			}
 		}
 	}
