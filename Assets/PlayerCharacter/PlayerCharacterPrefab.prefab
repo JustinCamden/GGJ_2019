@@ -84,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1920232205147380}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0, z: -3.35}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4542280823775168}
@@ -231,6 +231,7 @@ MonoBehaviour:
   ownerCharacterController: {fileID: 143659493827105398}
   ownerCamera: {fileID: 0}
   movementTurningSpeed: 720
+  fatJumpTime: 0.1
 --- !u!135 &135256802429843074
 SphereCollider:
   m_ObjectHideFlags: 1
