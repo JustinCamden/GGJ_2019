@@ -11,10 +11,9 @@ public class ToggleWindow : BaseInteraction
     //public GameObject blinds; - stretch goal 
     public GameObject window_1;
     public bool windowIsOpen = false;
+    public Animator anim;
 
-    //public bool windowOpenAnimation = false; //check if window is open or closed
-    //via which animation played last for the window (probably overcomplicating this)
-
+ 
     public override void Interact()
     {
         //check if window is enabled, if it isn't enable it, if it is disable it.
@@ -22,15 +21,29 @@ public class ToggleWindow : BaseInteraction
             // blind strech goal (if (blindIsOpen == true)){} 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (windowIsOpen == true)
+                if (windowIsOpen == false)
                 {
-                    windowIsOpen = false;
-                    //play animation script (if it works like this)
+                    windowIsOpen = true;
+                    //for simple animations, like for the window (this is an
+                    //untrue example), but if we ONLY wanted to open the window
+                    //this one below will work fine for doing one thing
+                    //as long as the animation plays and goes to an end state
+                    // - ex/
+                    //gameObject.GetComponent<Animator>().enabled = true;
+
+                    //if we want to do multiple animations - like closing the 
+                    //window after we open it, just add bools to trigger appropriate
+                    //connections, in the animation tree - ex/
+                    //anim.SetBool("isOpeningWindowFromScript", true);
+
                 }
                 else
                 {
-                    windowIsOpen = true;
-                    //play animation script 
+                    windowIsOpen = false;
+                    //so again, we want to close the window, so set the 
+                    //connection from the animation tree to trigger appropriate
+                    //animation - ex/
+                    //anim.SetBool("isClosingWindowFromScript", true);
                 }
             }
             //else{blindIsOpen = true);}
@@ -42,7 +55,8 @@ public class ToggleWindow : BaseInteraction
         void Start()
         {
             window_1 = GetComponent<GameObject>();
-        }
+        anim = gameObject.GetComponent<Animator>();
+    }
 
         // Update is called once per frame
         void Update()
