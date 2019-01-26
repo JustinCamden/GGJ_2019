@@ -50,7 +50,7 @@ public class BaseInteraction : MonoBehaviour {
 				interactSprite.SetActive(true);
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space) || controller.Action1)
+			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				// checks to see if it should Start a Minigame, Start a Dialogue, or just Interact. 
 				if (shouldStartMinigame)

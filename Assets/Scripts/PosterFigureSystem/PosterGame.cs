@@ -48,9 +48,9 @@ public class PosterGame : MonoBehaviour
                     print("Oh No! You're out of large sheets of graphics!");
                     //screen goes black
                     gameScreen.SetActive(false);
-                    placementBoard.transform.position = new Vector3(-.72f, 1.6f, 0.75f); // Bad hardcoding of values for testing. 
-                    placementBoard.transform.rotation = Quaternion.Euler(0, -24.7f, 1.9f); // But honestly will probably still hardcode in final scene.
-                    placementBoard.transform.localScale = new Vector3(20, 15, 1); // It works tho.
+                    placementBoard.transform.position = new Vector3(-13.28f, -2.17f, -9.41f); // Bad hardcoding of values for testing. 
+                    placementBoard.transform.rotation = Quaternion.Euler(0, -90f, 1.9f); // But honestly will probably still hardcode in final scene.
+                    placementBoard.transform.localScale = new Vector3(63, 40, 1); // It works tho.
                 }
             }
         }
