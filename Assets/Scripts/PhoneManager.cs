@@ -34,7 +34,9 @@ public class PhoneManager : MonoBehaviour {
 	public List<notesEntry> noteList = new List<notesEntry>();
 
 	[Header("Button Arrays")]
+	//Primary Buttons: the four buttons on the primary phone screen
 	public Button[] primaryButtons;
+	//Exit Buttons: the two buttons you can choose from for exiting the game
 	public Button[] exitButtons;
 
 	//Special Objects
@@ -58,19 +60,16 @@ public class PhoneManager : MonoBehaviour {
 				if(Input.GetKeyDown(primaryButton)){
 					switch(mainIndex){
 						case(0): //messages
-							secondaryMessages.SetActive(true);
-							primaryPhoneScreen.SetActive(false);
+							OpenMessages();
 						break;
 						case(1): //notes
-							secondaryNotes.SetActive(true);
-							primaryPhoneScreen.SetActive(false);
+							OpenNotes();
 						break;
 						case(2): //resume
-							DeactivatePhone();
+							ResumeGame();
 						break;
 						case(3): //exit
-							secondaryExit.SetActive(true);
-							primaryPhoneScreen.SetActive(false);
+							OpenExitPrompt();
 						break;
 					}
 				}
@@ -118,6 +117,8 @@ public class PhoneManager : MonoBehaviour {
 					}
 				}
 
+
+				//Display the currently-indexed note
 				noteTitleField.text = noteList[noteIndex].noteTitle;
 				noteContentField.text = noteList[noteIndex].noteContent;
 
@@ -125,19 +126,20 @@ public class PhoneManager : MonoBehaviour {
 			} else if(secondaryMessages.activeInHierarchy){
 
 				
-				//instant all currently-unlocked text messages
+				//instantiate all text messages
 				for(int i=0;i<messageList.Count;i++){
 					if(!GameObject.Find(messageList[i].name)){
-					GameObject newMsg = Instantiate(messageList[i],transform.position,Quaternion.identity);
-					newMsg.name = messageList[i].name;
-					newMsg.transform.localScale = new Vector3(1f,1f,1f);
-					newMsg.transform.SetParent(contentTarget.transform,false);
+						GameObject newMsg = Instantiate(messageList[i],transform.position,Quaternion.identity);
+							newMsg.name = messageList[i].name;
+							newMsg.transform.localScale = new Vector3(1f,1f,1f);
+							newMsg.transform.SetParent(contentTarget.transform,false);
 					}
 				}
 
 			} else if(secondaryExit.activeInHierarchy){
-
+				//Player is trying to exit
 				if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S)){
+					//Change between "confirm" and "cancel"
 					exitIndex = !exitIndex;
 					if(exitIndex){
 						exitButtons[0].interactable = false;
@@ -147,16 +149,15 @@ public class PhoneManager : MonoBehaviour {
 						exitButtons[1].interactable = false;
 						}
 				}
-
+				//Actually press "Space" or whatever primary button
 				if(Input.GetKeyDown(primaryButton)){
-					if(exitIndex){
+					if(!exitIndex){
 							//confirm exit
-							Application.Quit();
-						} else{
+							ExitGame();
+					} else{
 							//cancel exit
-							DeactivatePhone();
-							ActivatePhone();
-						}
+							CancelExitGame();
+					}
 				}
 
 			}
@@ -164,10 +165,18 @@ public class PhoneManager : MonoBehaviour {
 
 
 			if(Input.GetKeyDown(secondaryButton)){
-				DeactivatePhone();
+				//If you hit escape:
+				
+				if(secondaryExit.activeInHierarchy || secondaryNotes.activeInHierarchy || secondaryMessages.activeInHierarchy){
+					//Phone has already been deactivated, but you want to go back to the start screen, so reactivate it.
+					ActivatePhone();
+				} else{
+					DeactivatePhone();
+				}
 			}
 		} else{
 			if(Input.GetKeyDown(secondaryButton)){
+				//If the phone is not already active and you hit escape, open the phone
 				ActivatePhone();
 			}
 		}	
@@ -175,6 +184,35 @@ public class PhoneManager : MonoBehaviour {
 
 	}
 
+	//public voids to use for actual Unity Buttons
+	public void OpenMessages(){
+		secondaryMessages.SetActive(true);
+		primaryPhoneScreen.SetActive(false);
+	}
+
+	public void OpenNotes(){
+		secondaryNotes.SetActive(true);
+		primaryPhoneScreen.SetActive(false);
+	}
+
+	public void ResumeGame(){
+		DeactivatePhone();
+	}
+
+	public void OpenExitPrompt(){
+		secondaryExit.SetActive(true);
+		primaryPhoneScreen.SetActive(false);
+	}
+
+	public void CancelExitGame(){
+		ActivatePhone();
+	}
+
+	public void ExitGame(){
+		Application.Quit();
+	}
+
+	//When you close the pause menu, turn everything off!!
 	void DeactivatePhone(){
 		active = false;
 		//this stuff all needs a time delay
@@ -184,6 +222,7 @@ public class PhoneManager : MonoBehaviour {
 		secondaryMessages.SetActive(false);
 	}
 
+	//When you open the pause menu, make sure to set certain things to true and to reset any indices
 	void ActivatePhone(){
 		active = true;
 		mainIndex = 0;
@@ -202,6 +241,20 @@ public class PhoneManager : MonoBehaviour {
 		secondaryExit.SetActive(false);
 		secondaryNotes.SetActive(false);
 		secondaryMessages.SetActive(false);
+	}
+
+	//Call this from anywhere to add in a newMessage Prefab
+	//Sorry to keep these as prefabs, could redo as something more robust. more similar to the notes system
+	public void AddMessage(GameObject newMessage){
+		messageList.Add(newMessage);
+	}
+
+	//Call this from anywhere to add notes to the player's phone! They will be kept in the order that the player 'unlocks' them
+	public void AddNotes(string newNoteTitle,string newNoteContent){
+		notesEntry newNote = new notesEntry();
+		newNote.noteTitle = newNoteTitle;
+		newNote.noteContent = newNoteContent;
+		noteList.Add(newNote);
 	}
 }
 
