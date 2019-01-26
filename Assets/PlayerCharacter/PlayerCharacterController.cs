@@ -34,6 +34,9 @@ public class PlayerCharacterController : MonoBehaviour {
     [Tooltip("How long continuing to press the jump key will continue lengthen the jump.")]
     public float fatJumpTime = 0.1f;
 
+    [Tooltip("The collider we use for detecting interactables.")]
+    public ChildCollider interactionCollider;
+
     // Our current position along the curve
     float accelerationProgress = 0.0f;
 
@@ -49,6 +52,12 @@ public class PlayerCharacterController : MonoBehaviour {
     // Whether we are currently fat jumping
     bool fatJumping = false;
 
+    // The currently overlapping interactables
+    List<Collider> overlappingInteractables;
+
+    // The currently selected interactable
+    BaseInteraction selectedInteractable;
+
     void Start () {
         // Grab refs
         if (!ownerCharacterController)
@@ -58,6 +67,29 @@ public class PlayerCharacterController : MonoBehaviour {
         if (!ownerCamera)
         {
             ownerCamera = Camera.main;
+        }
+        // Find child interaction collider if we have none
+        if (!interactionCollider)
+        {
+            interactionCollider = GetComponentInChildren<ChildCollider>();
+            if (interactionCollider)
+            {
+                Rigidbody interactionColliderRigidBody = interactionCollider.gameObject.GetComponent<Rigidbody>();
+                if (!interactionColliderRigidBody)
+                {
+                    interactionColliderRigidBody = interactionCollider.gameObject.AddComponent<Rigidbody>();
+                }
+                if (interactionColliderRigidBody)
+                {
+                    interactionColliderRigidBody.isKinematic = true;
+                    interactionColliderRigidBody.useGravity = false;
+                }
+            }
+        }
+        if (interactionCollider)
+        {
+            interactionCollider.onChildTriggerEnter += OnInteractionTriggerEnter;
+            interactionCollider.onChildTriggerExit += OnInteractionTriggerExit;
         }
 
         // Create player actions
@@ -91,11 +123,13 @@ public class PlayerCharacterController : MonoBehaviour {
         // Jump
         ownerCharacterActions.jump.AddDefaultBinding(Key.Space);
         ownerCharacterActions.jump.AddDefaultBinding(InputControlType.Action1);
-    }
 
-    private void LateUpdate()
-    {
+        // Interact
+        ownerCharacterActions.interact.AddDefaultBinding(Key.E);
+        ownerCharacterActions.interact.AddDefaultBinding(InputControlType.Action3);
 
+        // Initialize lists
+        overlappingInteractables = new List<Collider>();
     }
 
     // Update is called once per frame
@@ -126,7 +160,6 @@ public class PlayerCharacterController : MonoBehaviour {
             {
                 horizontalDirection = new Vector3(ownerCharacterController.velocity.x, 0.0f, ownerCharacterController.velocity.z);
             }
-            horizontalDirection.Normalize();
 
             if (horizontalDirection != Vector3.zero)
             {
@@ -190,6 +223,46 @@ public class PlayerCharacterController : MonoBehaviour {
         {
             ownerCharacterController.Move(movementAcceleration);
         }
+
+        // Update the best interactable if appropriate
+        if (overlappingInteractables.Count > 1)
+        {
+            // Find the interactable we are closest to
+            BaseInteraction bestInteractable = null;
+            float smallestDistance = 9999.0f;
+            foreach (Collider interactable in overlappingInteractables)
+            {
+                float distanceToInteractable = Vector3.Distance(ownerCharacterController.transform.position, interactable.transform.position);
+                if (distanceToInteractable < smallestDistance)
+                {
+                    bestInteractable = interactable.gameObject.GetComponent<BaseInteraction>();
+                    smallestDistance = distanceToInteractable;
+                }
+            }
+
+            // Update our best interactable
+            if (bestInteractable != selectedInteractable)
+            {
+                // Deselect old best
+                if (selectedInteractable)
+                {
+                    selectedInteractable.OnDeselected();
+                }
+
+                // Select new best
+                bestInteractable = selectedInteractable;
+                if (selectedInteractable)
+                {
+                    selectedInteractable.OnSelected();
+                }
+            }
+        }
+
+        // Interact with selected interactable if appropriate
+        if (ownerCharacterActions.interact.WasPressed && selectedInteractable)
+        {
+            selectedInteractable.Interact();
+        }
     }
 
     Vector3 GetHorizontalAcceleration(Vector3 movementDirection, float maxAccelerationScalar, float deltaTime)
@@ -199,5 +272,35 @@ public class PlayerCharacterController : MonoBehaviour {
 
         // Final movement vector is the acceleration curve at acceleration progress * maxSpeed * direction
         return (movementDirection * Mathf.Min(accelerationCurve.Evaluate(accelerationProgress), maxAccelerationScalar) * maxMovementSpeed) * deltaTime;
+    }
+
+    void OnInteractionTriggerEnter(ChildCollider callingChildCollider, Collider other)
+    {
+        BaseInteraction interactable = other.gameObject.GetComponent<BaseInteraction>();
+        if (interactable)
+        {
+            overlappingInteractables.Add(other);
+            if (overlappingInteractables.Count < 2)
+            {
+                selectedInteractable = interactable;
+                selectedInteractable.OnSelected();
+            }
+        }
+
+        return;
+    }
+
+    void OnInteractionTriggerExit(ChildCollider callingChildCollider, Collider other)
+    {
+        BaseInteraction interactable = other.gameObject.GetComponent<BaseInteraction>();
+        if (interactable)
+        {
+            overlappingInteractables.Remove(other);
+            if (overlappingInteractables.Count <= 0 && selectedInteractable)
+            {
+                selectedInteractable.OnDeselected();
+                selectedInteractable = null;
+            }
+        }
     }
 }

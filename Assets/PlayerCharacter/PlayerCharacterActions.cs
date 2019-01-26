@@ -11,6 +11,7 @@ public class PlayerCharacterActions : PlayerActionSet {
     public PlayerAction moveDown;
     public PlayerTwoAxisAction moveAxis;
     public PlayerAction jump;
+    public PlayerAction interact;
 
     public PlayerCharacterActions()
     {
@@ -20,5 +21,6 @@ public class PlayerCharacterActions : PlayerActionSet {
         moveDown = CreatePlayerAction("Move Down");
         moveAxis = CreateTwoAxisPlayerAction(moveLeft, moveRight, moveDown, moveUp);
         jump = CreatePlayerAction("Jump");
+        interact = CreatePlayerAction("Interact");
     }
 }
