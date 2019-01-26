@@ -4,13 +4,41 @@ using UnityEngine;
 
 public class BaseInteraction : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	public GameObject interactSprite;
+	public bool shouldStartMinigame;
+
+	public virtual void Interact () {
+		// do stuff here!
+		// turn lights on/off, play sound, trigger animations
+		// enable/disable GameObjects
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public virtual void StartMinigame () {
+		// start a minigame here 
 	}
+
+	private void OnTriggerEnter(Collider other)
+    {
+		// once player enters, set sprite on 
+        interactSprite.SetActive(true);
+    }
+
+	private void OnTriggerStay (Collider other)
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Interact();
+
+			if (shouldStartMinigame)
+			{
+				StartMinigame();
+			}
+		}
+	}
+
+    private void OnTriggerExit(Collider other)
+    {
+        // once exits sets arrow to false 
+        interactSprite.SetActive(false);
+    }
 }
