@@ -8,13 +8,13 @@ public class PosterGame : MonoBehaviour
     public static PosterGame pg;
     public GameObject gameScreen; //False wall for mini-game background
 
-    public GameObject currentPoster; //Poster currently held by player to place next
+    GameObject currentPoster; //Poster currently held by player to place next
     public GameObject[] posterPrefabs; //The minigame will go through all the posters before finishing
 
     public GameObject placementBoard; //Object used as container for scaling the posters down from mini-game to player's room
-    public int currentLayer = 1; //Keeps track of current poster layer so they can overlap
+    int currentLayer = 1; //Keeps track of current poster layer so they can overlap
 
-    public bool hasPoster = false;
+    bool hasPoster = false;
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class PosterGame : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        SwitchPoster(0); //Just debugging to start it, it should be called via interaction with PosterGame.pg.PosterMinigame()
+        //SwitchPoster(0); //Just debugging to start it, it should be called via interaction with PosterGame.pg.PosterMinigame()
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class PosterGame : MonoBehaviour
     {
         if (hasPoster) //bool to stop the object from moving away from minigame
         {
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+            Vector3 move = new Vector3(0, Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
             transform.position += move * 5f * Time.deltaTime; //Simple movement for the posters in the game. Probably will need colliders to stop from leaving the screen.
 
             if (Input.GetKeyUp(KeyCode.Space)) // Places the poster and parents it from the controller to the placementBoard for moving later
@@ -48,9 +48,10 @@ public class PosterGame : MonoBehaviour
                     print("Oh No! You're out of large sheets of graphics!");
                     //screen goes black
                     gameScreen.SetActive(false);
-                    placementBoard.transform.position = new Vector3(-13.28f, -2.17f, -9.41f); // Bad hardcoding of values for testing. 
-                    placementBoard.transform.rotation = Quaternion.Euler(0, -90f, 1.9f); // But honestly will probably still hardcode in final scene.
-                    placementBoard.transform.localScale = new Vector3(63, 40, 1); // It works tho.
+                    //placementBoard.transform.position = new Vector3(-.72f, 1.6f, 0.75f); // Bad hardcoding of values for testing. 
+                    //placementBoard.transform.rotation = Quaternion.Euler(0, -24.7f, 1.9f); // But honestly will probably still hardcode in final scene.
+                    //placementBoard.transform.localScale = new Vector3(20, 15, 1); // It works tho.
+                    //Camera system made all of this scaling useless. Yayyyyyyy
                 }
             }
         }
@@ -58,7 +59,7 @@ public class PosterGame : MonoBehaviour
 
     void SwitchPoster(int nextPost)
     {
-        GameObject curPost = Instantiate(posterPrefabs[nextPost], pg.gameObject.transform.position, Quaternion.identity) as GameObject; //Instantiates next poster for the poster minigame
+        GameObject curPost = Instantiate(posterPrefabs[nextPost], pg.gameObject.transform.position, placementBoard.gameObject.transform.rotation) as GameObject; //Instantiates next poster for the poster minigame
         curPost.transform.SetParent(pg.gameObject.transform); // Assigns it to move along with the controller
         curPost.GetComponent<SpriteRenderer>().sortingOrder = currentLayer; // Allows posters to overlap
         hasPoster = true; 
@@ -74,7 +75,7 @@ public class PosterGame : MonoBehaviour
     IEnumerator StartPosters()
     {
         //camera will go black and move to minigame
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         SwitchPoster(0);
     }
 }
