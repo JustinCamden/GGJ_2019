@@ -13,10 +13,17 @@ public class BaseInteraction : MonoBehaviour {
 	[Tooltip("used for seeing if the player should be able to hit space and interact")]
 	public bool interactEnabled = true;
 
+	[Tooltip("whether or not this interaction should play a sound!")]
+	public bool soundShouldPlay;
+	
+	[Tooltip("whether or not this interaction should cause the screen to blackout and fade back in")]
+	public bool shouldFadeInOut;
+
 	public List<DialogueRunner.ConversationWindow> conversationWindows;
 	
 	
 	private InputDevice controller;
+	private AudioSource source;
 	
 	public virtual void Interact () {
 		// do stuff here!
@@ -33,7 +40,15 @@ public class BaseInteraction : MonoBehaviour {
 		//grab controller
 		controller = InputManager.ActiveDevice;
 	}
-	
+
+	private void Start()
+	{
+		if (soundShouldPlay)
+		{
+			source = GetComponent<AudioSource>();
+		}
+	}
+
 	private void OnTriggerEnter(Collider other)
     {
 		// once player enters, set sprite on 
@@ -52,7 +67,12 @@ public class BaseInteraction : MonoBehaviour {
 
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
-				// checks to see if it should Start a Minigame, Start a Dialogue, or just Interact. 
+				// checks to see if it should Start a Minigame, Start a Dialogue, Darken the screen, or just Interact. 
+				if (soundShouldPlay)
+				{
+					source.Play();
+				}
+				
 				if (shouldStartMinigame)
 				{
 					StartMinigame();
@@ -61,6 +81,10 @@ public class BaseInteraction : MonoBehaviour {
 				{
 					DialogueStart();
 					interactEnabled = false;
+				}
+				else if (shouldFadeInOut)
+				{
+					ScreenDarkener.Instance.Darken(this);
 				}
 				else
 				{
