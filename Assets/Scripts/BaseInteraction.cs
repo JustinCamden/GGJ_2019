@@ -39,6 +39,6 @@ public class BaseInteraction : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         // once exits sets arrow to false 
-        interactSprite.SetActive(true);
+        interactSprite.SetActive(false);
     }
 }
