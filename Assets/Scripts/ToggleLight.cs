@@ -11,12 +11,12 @@ public class ToggleLight : BaseInteraction
     public override void Interact()
     {
         //check if light is enabled, if it isn't enable it, if it is disable it.
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
+//        {
+            //if (Input.GetKeyDown(KeyCode.Space))
+//            {
                 light_1.enabled = !light_1.enabled;
-            }
-        }
+//            }
+//        }
     }
 
 
