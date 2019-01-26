@@ -16,6 +16,7 @@ public class dirtPickup : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if(other.tag == "Vacuum"){
+			//Whenever dirt gets touched by the vacuum, destroy it
 			Destroy(gameObject);
 		}
 	}
