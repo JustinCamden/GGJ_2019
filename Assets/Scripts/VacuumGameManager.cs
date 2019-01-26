@@ -6,7 +6,7 @@ public class VacuumGameManager : MonoBehaviour {
 
 	[Range(0,8)] public int dirtPopulation;
 	public GameObject dirtPrefab;
-	public bool active = true;
+	public bool active;
 	public GameObject vacuum;
 
 	[Header("RealWorld Items")]

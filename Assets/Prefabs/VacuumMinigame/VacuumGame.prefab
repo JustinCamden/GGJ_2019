@@ -147,6 +147,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dirtPopulation: 0
   dirtPrefab: {fileID: 1248940305847840, guid: 0f66294ff77bc4f978488524b5b50c23, type: 2}
+  active: 0
+  vacuum: {fileID: 1974391617787388}
+  itemsToRemove: []
 --- !u!114 &114792472629650350
 MonoBehaviour:
   m_ObjectHideFlags: 1
