@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PosterGame : MonoBehaviour
 {
+    private Rigidbody rb;
 
     public static PosterGame pg;
     public GameObject gameScreen; //False wall for mini-game background
@@ -24,6 +25,7 @@ public class PosterGame : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         //SwitchPoster(0); //Just debugging to start it, it should be called via interaction with PosterGame.pg.PosterMinigame()
     }
 
@@ -33,7 +35,7 @@ public class PosterGame : MonoBehaviour
         if (hasPoster) //bool to stop the object from moving away from minigame
         {
             Vector3 move = new Vector3(0, Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
-            transform.position += move * 5f * Time.deltaTime; //Simple movement for the posters in the game. Probably will need colliders to stop from leaving the screen.
+            rb.MovePosition(transform.position + move * 2.5f * Time.deltaTime); //Simple movement for the posters in the game. Probably will need colliders to stop from leaving the screen.
 
             if (Input.GetKeyUp(KeyCode.Space)) // Places the poster and parents it from the controller to the placementBoard for moving later
             {
