@@ -51,11 +51,11 @@ public class BaseInteraction : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other)
     {
-		// once player enters, set sprite on 
-        interactSprite.SetActive(true);
+        // once player enters, set sprite on 
+        // interactSprite.SetActive(true);
     }
 
-	private void OnTriggerStay (Collider other)
+    private void OnTriggerStay (Collider other)
 	{
 		// waits for user input 
 		if (interactEnabled)
@@ -106,6 +106,16 @@ public class BaseInteraction : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         // once exits sets arrow to false 
+        // interactSprite.SetActive(false);
+    }
+
+    public void OnSelected()
+    {
+        interactSprite.SetActive(true);
+    }
+
+    public void OnDeselected()
+    {
         interactSprite.SetActive(false);
     }
 
