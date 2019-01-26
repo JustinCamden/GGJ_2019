@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4440786568605806}
   - component: {fileID: 212143163216024500}
+  - component: {fileID: 114641495916299156}
   m_Layer: 0
   m_Name: InteractSprite
   m_TagString: Untagged
@@ -83,6 +84,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114641495916299156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1292756629199362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bcfb35bc387e4eb093425c33e48a1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114841390367092280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,6 +108,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactSprite: {fileID: 1292756629199362}
   shouldStartMinigame: 0
+  shouldRunDialogue: 0
+  interactEnabled: 1
+  conversationWindows: []
 --- !u!212 &212143163216024500
 SpriteRenderer:
   m_ObjectHideFlags: 1
