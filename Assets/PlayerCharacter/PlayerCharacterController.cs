@@ -4,18 +4,17 @@ using UnityEngine;
 using InControl;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(PlayerCharacterActions))]
 public class PlayerCharacterController : MonoBehaviour {
 
     [Tooltip("The maximum movement speed of the character.")]
-    public float maxMovementSpeed = 250.0f;
+    public float maxMovementSpeed = 5.0f;
 
     [Tooltip("The movement speed acceleration curve of the character.")]
     public AnimationCurve accelerationCurve;
 
     [Tooltip("How long it takes to accelerate.")]
     [Range(0.0f, 5.0f)]
-    public float accelerationTime = 1.0f;
+    public float accelerationTime = 0.1f;
 
     [Tooltip("How the gravity scale for the character.")]
     public float gravity = 9.8f;
@@ -30,7 +29,7 @@ public class PlayerCharacterController : MonoBehaviour {
     public Camera ownerCamera;
 
     [Tooltip("How fast the character should rotate in degrees per second.")]
-    public float movementRotationSpeed = 360.0f;
+    public float movementTurningSpeed = 720.0f;
 
     // Our current position along the curve
     float accelerationProgress = 0.0f;
@@ -88,36 +87,43 @@ public class PlayerCharacterController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        // Update acceleration if appropriate
+        // Cache local variables
         Vector3 movementAcceleration = Vector3.zero;
         float deltaTime = Time.deltaTime;
-        if (owningCharacterActions.moveAxis.IsPressed || ownerCharacterController.velocity.sqrMagnitude > 0.0f)
+        bool moveAxisPressed = owningCharacterActions.moveAxis.IsPressed;
+
+       // Update lateral movement if appropriate
+        if (moveAxisPressed || ownerCharacterController.velocity.sqrMagnitude > 0.0f)
         {
 
             // Transform camera space input into world space
             // If movement is pressed use the pressed direction
             // Otherwise, use the current velocity
-            Vector3 movementDirection =
-                (owningCharacterActions.moveAxis.IsPressed ?
-                ownerCamera.transform.TransformDirection(new Vector3
-                (owningCharacterActions.moveAxis.X, 0.0f,
-                owningCharacterActions.moveAxis.Y))
-                : ownerCharacterController.velocity);
+            Vector3 horizontalDirection;
+            float horizontalAccelerationScalar = 1.0f;
+            if (moveAxisPressed)
+            {
+                Vector2 moveInput = new Vector2(owningCharacterActions.moveAxis.X, owningCharacterActions.moveAxis.Y);
+                horizontalDirection = ownerCamera.transform.TransformDirection(new Vector3(moveInput.x, 0.0f, moveInput.y));
+                horizontalDirection.y = 0.0f;
+                horizontalAccelerationScalar = Mathf.Clamp(moveInput.magnitude, -1.0f, 1.0f);
+            }
+            else
+            {
+                horizontalDirection = new Vector3(ownerCharacterController.velocity.x, 0.0f, ownerCharacterController.velocity.z);
+            }
+            horizontalDirection.Normalize();
 
-            // Make sure we flatten the Y since we don't want to move the character up or down based on 
-            // the movement axis
-            movementDirection.y = 0.0f;
-
-            if (movementDirection != Vector3.zero)
+            if (horizontalDirection != Vector3.zero)
             {
                 // Normalize to get the final movement direction
-                movementDirection.Normalize();
+                horizontalDirection.Normalize();
 
                 // Get the acceleration based on the movement direction
-                movementAcceleration = GetAcceleration(movementDirection, deltaTime);
+                movementAcceleration = GetHorizontalAcceleration(horizontalDirection, horizontalAccelerationScalar, deltaTime);
 
                 // Rotate towards the movement direction
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(movementDirection), movementRotationSpeed * deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(horizontalDirection), movementTurningSpeed * deltaTime);
             }
         }
 
@@ -148,12 +154,12 @@ public class PlayerCharacterController : MonoBehaviour {
         }
     }
 
-    Vector3 GetAcceleration(Vector3 movementDirection, float deltaTime)
+    Vector3 GetHorizontalAcceleration(Vector3 movementDirection, float maxAccelerationScalar, float deltaTime)
     {
         // Accelerate or decelerate depending on whether movement is pressed
-        accelerationProgress = Mathf.Lerp(0.0f, 1.0f, deltaTime * (1.0f / accelerationTime) * (owningCharacterActions.moveAxis.IsPressed ? 1.0f : -1.0f));
+        accelerationProgress = Mathf.Lerp(0.0f, 1.0f, accelerationProgress + deltaTime * (1.0f / accelerationTime) * (owningCharacterActions.moveAxis.IsPressed ? 1.0f : -1.0f));
 
         // Final movement vector is the acceleration curve at acceleration progress * maxSpeed * direction
-        return (movementDirection * accelerationCurve.Evaluate(accelerationProgress) * maxMovementSpeed) * deltaTime;
+        return (movementDirection * Mathf.Min(accelerationCurve.Evaluate(accelerationProgress), maxAccelerationScalar) * maxMovementSpeed) * deltaTime;
     }
 }
