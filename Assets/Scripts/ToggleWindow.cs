@@ -14,7 +14,7 @@ public class ToggleWindow : BaseInteraction
     public Animator anim;
     public Animator interactionAnim;
     //public SoundInteraction  
-    public AudioSource windowSound;
+    //public AudioSource windowSound;
 
         
 
@@ -42,7 +42,7 @@ public class ToggleWindow : BaseInteraction
             //anim.SetBool("WindowStayDownBool", false);
             interactionAnim.SetBool("WindowStayUpBool", true);
             interactionAnim.SetBool("WindowStayDownBool", false);
-            windowSound.Play(0);
+            //windowSound.Play(0);
 
         }
         else
@@ -52,7 +52,7 @@ public class ToggleWindow : BaseInteraction
             //anim.SetBool("WindowStayUpBool", false);
             interactionAnim.SetBool("WindowStayUpBool", false);
             interactionAnim.SetBool("WindowStayDownBool", true);
-            windowSound.Play(0);
+            //windowSound.Play(0);
                 //so again, we want to close the window, so set the 
                 //connection from the animation tree to trigger appropriate
                 //animation - ex/
@@ -68,7 +68,7 @@ public class ToggleWindow : BaseInteraction
         {
             window_1 = GetComponent<GameObject>();
             anim = gameObject.GetComponent<Animator>();
-            windowSound = GetComponent<AudioSource>();
+            //windowSound = GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
