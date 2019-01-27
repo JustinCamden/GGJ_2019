@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour 
 {
@@ -15,14 +16,21 @@ public class MainMenu : MonoBehaviour
     public Button bSettings;
 
     [Space]
-    [Header("Potato")]
+    [Header("Settings Menu")]
+    public GameObject mSettings;
     public Button bFullscreen;
+    public AudioMixer masterMixer;
 
     private void Start()
     {
         bStart.onClick.AddListener(() => StartGame());
         bSettings.onClick.AddListener(() => switchToOption());
         bExit.onClick.AddListener(() => QuitGame());
+    }
+
+    private void Update()
+    {
+
     }
 
     void StartGame()
@@ -42,5 +50,14 @@ public class MainMenu : MonoBehaviour
 
     //----------Settings
 
+    public void SetSFXLevel(float sfxLvl)
+    {
+        masterMixer.SetFloat("volSFX", sfxLvl);
+    }
+
+    public void SetMusicLevel(float musicLvl)
+    {
+        masterMixer.SetFloat("volMusic", musicLvl);
+    }
 
 }
