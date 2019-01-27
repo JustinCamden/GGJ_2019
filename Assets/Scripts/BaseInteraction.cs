@@ -45,14 +45,15 @@ public class BaseInteraction : MonoBehaviour {
 		// checks to see if it should Start a Minigame, Start a Dialogue, Darken the screen, or just Interact. 
 		if (interactEnabled)
 		{
-			if (soundShouldPlay)
-			{
-				source.Play();
-			}
+	
 
 			if (shouldStartMinigame)
 			{
 				StartMinigame();
+				if (soundShouldPlay)
+				{
+					source.Play();
+				}
 			}
 			else if (shouldRunDialogue)
 			{
@@ -67,6 +68,10 @@ public class BaseInteraction : MonoBehaviour {
 			else
 			{
 				Interact();
+				if (soundShouldPlay)
+				{
+					source.Play();
+				}
 			}
 
 			if (isKeyInteraction)
@@ -90,11 +95,18 @@ public class BaseInteraction : MonoBehaviour {
 	{
 		//grab controller
 		controller = InputManager.ActiveDevice;
+		if (!interactEnabled)
+		{
+			interactSprite.SetActive(false);
+		}
 	}
 
     public void OnSelected()
     {
-        interactSprite.SetActive(true);
+	    if (interactEnabled)
+	    {
+		    interactSprite.SetActive(true);
+	    }
     }
 
     public void OnDeselected()
@@ -116,10 +128,28 @@ public class BaseInteraction : MonoBehaviour {
 		if (shouldStartMinigame)
 		{
 			StartMinigame();
+			if (soundShouldPlay)
+			{
+				source.Play();
+			}
+		}
+		else if (shouldFadeInOut)
+		{
+			if (soundShouldPlay)
+			{
+				source.Play();
+			}
+			ScreenDarkener.Instance.Darken(this);
+			interactEnabled = false;
 		}
 		else
 		{
 			Interact();
+			if (soundShouldPlay)
+			{
+				source.Play();
+			}
 		}
+		
 	}
 }
