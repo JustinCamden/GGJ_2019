@@ -6,7 +6,7 @@ public class MaterialChanger : BaseInteraction {
 
 	public List<Material> paints;
 	public List<GameObject> objectsToPaint;
-	private int currentMat = 0;
+	public int currentMat = 0;
 
 	public override void Interact()
 	{
@@ -21,6 +21,12 @@ public class MaterialChanger : BaseInteraction {
 		}
 
 		currentMat++;
+		StartCoroutine(pause());
+	}
+
+	public IEnumerator pause()
+	{
+		yield return new WaitForSeconds(1f);
 		interactEnabled = true;
 	}
 }

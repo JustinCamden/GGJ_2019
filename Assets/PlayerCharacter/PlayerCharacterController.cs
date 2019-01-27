@@ -65,7 +65,7 @@ public class PlayerCharacterController : MonoBehaviour {
     BaseInteraction selectedInteractable;
 
     // Whether movement input is currently enabled
-    bool movementInputEnabled = true;
+    public bool movementInputEnabled = true;
 
     // Whether walking is currently enabled
     bool walkingEnabled = true;

@@ -18,6 +18,8 @@ public class FigureHandler : MonoBehaviour {
 
     int figTracker = 0; //Keeps track of current numbers of placed figures
 
+    private PlayerCharacterController pCC;
+    
     private void Awake()
     {
         fh = this;
@@ -69,6 +71,8 @@ public class FigureHandler : MonoBehaviour {
         else
         {
             CameraRailer.cr.MoveCamera(CameraRailer.cr.overWorldTrans, CameraRailer.cr.overWorldSize);
+            pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+            pCC.movementInputEnabled = true;
         }
 
     }

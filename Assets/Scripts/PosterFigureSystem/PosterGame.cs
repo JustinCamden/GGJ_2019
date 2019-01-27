@@ -17,6 +17,8 @@ public class PosterGame : MonoBehaviour
 
     bool hasPoster = false;
 
+    private PlayerCharacterController pCC;
+    
     private void Awake()
     {
         pg = this;
@@ -53,7 +55,9 @@ public class PosterGame : MonoBehaviour
                     //placementBoard.transform.localScale = new Vector3(20, 15, 1); // It works tho.
                     //Camera system made all of this scaling useless. Yayyyyyyy
                     CameraRailer.cr.MoveCamera(CameraRailer.cr.overWorldTrans, CameraRailer.cr.overWorldSize);
-                    
+                    pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+                    pCC.movementInputEnabled = true;
+
                 }
             }
         }

@@ -23,7 +23,7 @@ public class BaseInteraction : MonoBehaviour {
 	public bool isKeyInteraction;
 	
 	public List<DialogueRunner.ConversationWindow> conversationWindows;
-	
+	private PlayerCharacterController pCC;
 	
 	private InputDevice controller;
 	private  AudioSource source;
@@ -59,15 +59,20 @@ public class BaseInteraction : MonoBehaviour {
 			{
 				DialogueStart();
 				interactEnabled = false;
+				pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+				pCC.movementInputEnabled = false;
 			}
 			else if (shouldFadeInOut)
 			{
 				ScreenDarkener.Instance.Darken(this);
 				interactEnabled = false;
+				pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+				pCC.movementInputEnabled = false;
 			}
 			else
 			{
 				Interact();
+				interactEnabled = false;
 				if (soundShouldPlay)
 				{
 					source.Play();
@@ -97,7 +102,7 @@ public class BaseInteraction : MonoBehaviour {
 		controller = InputManager.ActiveDevice;
 		if (!interactEnabled)
 		{
-			interactSprite.SetActive(false);
+//			interactSprite.SetActive(false);
 		}
 	}
 
@@ -141,6 +146,8 @@ public class BaseInteraction : MonoBehaviour {
 			}
 			ScreenDarkener.Instance.Darken(this);
 			interactEnabled = false;
+			pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+			pCC.movementInputEnabled = false;
 		}
 		else
 		{
