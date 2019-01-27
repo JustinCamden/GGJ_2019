@@ -8,7 +8,6 @@ public class PosterGame : MonoBehaviour
     private Rigidbody rb;
 
     public static PosterGame pg;
-    public GameObject gameScreen; //False wall for mini-game background
 
     GameObject currentPoster; //Poster currently held by player to place next
     public GameObject[] posterPrefabs; //The minigame will go through all the posters before finishing
@@ -48,9 +47,7 @@ public class PosterGame : MonoBehaviour
                 }
                 else
                 {
-                    print("Oh No! You're out of large sheets of graphics!");
                     //screen goes black
-                    gameScreen.SetActive(false);
                     //placementBoard.transform.position = new Vector3(-.72f, 1.6f, 0.75f); // Bad hardcoding of values for testing. 
                     //placementBoard.transform.rotation = Quaternion.Euler(0, -24.7f, 1.9f); // But honestly will probably still hardcode in final scene.
                     //placementBoard.transform.localScale = new Vector3(20, 15, 1); // It works tho.
