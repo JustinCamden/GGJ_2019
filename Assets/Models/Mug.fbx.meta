@@ -1,25 +1,30 @@
 fileFormatVersion: 2
-guid: 1b00c53e7ba4b4ecebf79227e0b3653e
+guid: cc31118718961497687c5c7bb7baba27
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: pCube2
+    100004: pCylinder2
+    100006: pCylinder3
+    100008: transform1
+    100010: transform2
     400000: //RootNode
-    2100000: DustbusterTransparent
-    2100002: DustbusterPrimary
-    2100004: DustbusterSecondary
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Circle
-    7400000: Default Take
-    9500000: //RootNode
-    2186277476908879412: ImportLogs
+    400002: pCube2
+    400004: pCylinder2
+    400006: pCylinder3
+    400008: transform1
+    400010: transform2
+    2100000: Mug1
+    2300000: pCylinder3
+    3300000: pCylinder3
+    4300000: pCylinder3
   externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -66,7 +71,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
     previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -90,7 +95,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
