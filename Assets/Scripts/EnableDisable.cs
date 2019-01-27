@@ -19,5 +19,6 @@ public class EnableDisable : BaseInteraction {
 			obj.SetActive(false);
 		}
 
+		interactEnabled = false;
 	}
 }

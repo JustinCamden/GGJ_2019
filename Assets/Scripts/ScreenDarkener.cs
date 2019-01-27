@@ -28,6 +28,7 @@ public class ScreenDarkener : MonoBehaviour
 	
 	private SpriteRenderer sprite;
 	public float DarkenSpeed;
+	private PlayerCharacterController pCC;
 	
 	// Use this for initialization
 	void Start () {
@@ -65,5 +66,8 @@ public class ScreenDarkener : MonoBehaviour
 			yield return new WaitForSeconds(DarkenSpeed);
 			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, sprite.color.a - 0.02f);
 		}
+		pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+		pCC.movementInputEnabled = true;
+		
 	}
 }
