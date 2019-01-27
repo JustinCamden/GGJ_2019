@@ -9,7 +9,7 @@ public class VacuumGameManager : MonoBehaviour {
 	public bool active;
 	public GameObject vacuum;
 	public Camera myCam;
-
+	private PlayerCharacterController pCC;
 	[Header("RealWorld Items")]
 	public GameObject[] itemsToRemove;
 
@@ -49,6 +49,8 @@ public class VacuumGameManager : MonoBehaviour {
 	}
 
 	public void EndMinigame(){
+		pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+		pCC.movementInputEnabled = true;
 		Destroy(gameObject);
 	}
 }
