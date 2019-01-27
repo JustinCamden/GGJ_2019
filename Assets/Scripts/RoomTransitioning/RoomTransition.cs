@@ -44,9 +44,9 @@ public class RoomTransition : MonoBehaviour {
 			RoomInfo rinfo = other.gameObject.GetComponent<RoomInfo>();
 			StartCoroutine(lightChange(transparentColor,normalColor));
 			StartCoroutine(cameraChange(cameraPos,balconyPos));
-			for(int i=0;i<rinfo.stuffToDeactivate.Length;i++){
-				rinfo.stuffToDeactivate[i].SetActive(false);
-			}
+			//for(int i=0;i<rinfo.stuffToDeactivate.Length;i++){
+			//	rinfo.stuffToDeactivate[i].SetActive(false);
+			//}
 		}
 	}
 

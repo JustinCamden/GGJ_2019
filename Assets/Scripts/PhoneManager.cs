@@ -250,6 +250,9 @@ public class PhoneManager : MonoBehaviour {
 	//Call this from anywhere to add in a newMessage Prefab
 	//Sorry to keep these as prefabs, could redo as something more robust. more similar to the notes system
 	public void AddMessage(GameObject newMessage){
+		if(messageList.Count > 2){
+			messageList.RemoveAt(0);
+		}
 		messageList.Add(newMessage);
 		Instantiate(messageAlert,transform.position,Quaternion.identity);
 	}
