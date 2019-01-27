@@ -11,6 +11,8 @@ public class ToggleWindow : BaseInteraction
     //public GameObject blinds; - stretch goal 
     public GameObject window_1;
     public bool windowIsOpen = false;
+    public bool shouldPlayBeachLoop;
+    public AudioSource beachSource;
     public Animator anim;
     public Animator interactionAnim;
     //public SoundInteraction  
@@ -43,6 +45,9 @@ public class ToggleWindow : BaseInteraction
             interactionAnim.SetBool("WindowStayUpBool", true);
             interactionAnim.SetBool("WindowStayDownBool", false);
             interactEnabled = true;
+            if (shouldPlayBeachLoop) {
+                beachSource.Play();
+            }
             //windowSound.Play(0);
 
         }
@@ -54,6 +59,9 @@ public class ToggleWindow : BaseInteraction
             interactionAnim.SetBool("WindowStayUpBool", false);
             interactionAnim.SetBool("WindowStayDownBool", true);
             interactEnabled = true;
+            if (shouldPlayBeachLoop) {
+                beachSource.Stop();
+            }
             //windowSound.Play(0);
                 //so again, we want to close the window, so set the 
                 //connection from the animation tree to trigger appropriate
