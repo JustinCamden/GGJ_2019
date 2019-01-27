@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour
     public GameObject mSettings;
     public Button bFullscreen;
     public AudioMixer masterMixer;
+    public AudioSource sourceAudio;
 
     private void Start()
     {
@@ -53,6 +54,7 @@ public class MainMenu : MonoBehaviour
     public void SetSFXLevel(float sfxLvl)
     {
         masterMixer.SetFloat("volSFX", sfxLvl);
+        sourceAudio.Play();
     }
 
     public void SetMusicLevel(float musicLvl)

@@ -9,6 +9,7 @@ TagManager:
   - VacummManager
   - Detector
   - VacuumManager
+  - Room
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - PostProcessing
   - Minigame
   - Floor
-  - 
-  - 
+  - Interaction
+  - Kickable
   - 
   - 
   - 
