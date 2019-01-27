@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class PosterGame : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class PosterGame : MonoBehaviour
             Vector3 move = new Vector3(0, Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
             rb.MovePosition(transform.position + move * 2.5f * Time.deltaTime); //Simple movement for the posters in the game. Probably will need colliders to stop from leaving the screen.
 
-            if (Input.GetKeyUp(KeyCode.Space)) // Places the poster and parents it from the controller to the placementBoard for moving later
+            if (Input.GetKeyUp(KeyCode.Space) || InputManager.ActiveDevice.Action1.WasPressed) // Places the poster and parents it from the controller to the placementBoard for moving later
             {
                 currentPoster.transform.SetParent(placementBoard.transform);
                 hasPoster = false;
