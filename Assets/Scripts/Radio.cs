@@ -22,5 +22,12 @@ public class Radio : BaseInteraction
 			radioSource.Play();
 			currentSong++;
 		}
+
+		
+	}
+
+	void Update()
+	{
+		interactEnabled = true;
 	}
 }
