@@ -65,5 +65,7 @@ public class ScreenDarkener : MonoBehaviour
 			yield return new WaitForSeconds(DarkenSpeed);
 			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, sprite.color.a - 0.02f);
 		}
+
+		interaction.interactEnabled = true;
 	}
 }

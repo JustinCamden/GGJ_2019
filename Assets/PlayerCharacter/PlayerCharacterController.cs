@@ -44,7 +44,7 @@ public class PlayerCharacterController : MonoBehaviour {
     float verticalSpeed = 0.0f;
 
     // Player character actions instance
-    PlayerCharacterActions ownerCharacterActions;
+    MainPlayerActionSet playerActions;
 
     // The start time of the last jump
     float jumpStartTimeStamp;
@@ -92,41 +92,7 @@ public class PlayerCharacterController : MonoBehaviour {
             interactionCollider.onChildTriggerExit += OnInteractionTriggerExit;
         }
 
-        // Create player actions
-        ownerCharacterActions = new PlayerCharacterActions();
-
-        // Bind default key bindings
-        // Move up
-        ownerCharacterActions.moveUp.AddDefaultBinding(Key.W);
-        ownerCharacterActions.moveUp.AddDefaultBinding(Key.UpArrow);
-        ownerCharacterActions.moveUp.AddDefaultBinding(InputControlType.LeftStickUp);
-        ownerCharacterActions.moveUp.AddDefaultBinding(InputControlType.DPadUp);
-
-        // Move down
-        ownerCharacterActions.moveDown.AddDefaultBinding(Key.S);
-        ownerCharacterActions.moveDown.AddDefaultBinding(Key.DownArrow);
-        ownerCharacterActions.moveDown.AddDefaultBinding(InputControlType.LeftStickDown);
-        ownerCharacterActions.moveDown.AddDefaultBinding(InputControlType.DPadDown);
-
-        // Move right
-        ownerCharacterActions.moveRight.AddDefaultBinding(Key.D);
-        ownerCharacterActions.moveRight.AddDefaultBinding(Key.RightArrow);
-        ownerCharacterActions.moveRight.AddDefaultBinding(InputControlType.LeftStickRight);
-        ownerCharacterActions.moveRight.AddDefaultBinding(InputControlType.DPadRight);
-
-        // Move left
-        ownerCharacterActions.moveLeft.AddDefaultBinding(Key.A);
-        ownerCharacterActions.moveLeft.AddDefaultBinding(Key.LeftArrow);
-        ownerCharacterActions.moveLeft.AddDefaultBinding(InputControlType.LeftStickLeft);
-        ownerCharacterActions.moveLeft.AddDefaultBinding(InputControlType.DPadLeft);
-
-        // Jump
-        ownerCharacterActions.jump.AddDefaultBinding(Key.Space);
-        ownerCharacterActions.jump.AddDefaultBinding(InputControlType.Action1);
-
-        // Interact
-        ownerCharacterActions.interact.AddDefaultBinding(Key.E);
-        ownerCharacterActions.interact.AddDefaultBinding(InputControlType.Action3);
+        playerActions = PlayerInputManager.PlayerActions;
 
         // Initialize lists
         overlappingInteractables = new List<Collider>();
@@ -138,7 +104,7 @@ public class PlayerCharacterController : MonoBehaviour {
         // Cache local variables
         Vector3 movementAcceleration = Vector3.zero;
         float deltaTime = Time.deltaTime;
-        bool moveAxisPressed = ownerCharacterActions.moveAxis.IsPressed;
+        bool moveAxisPressed = playerActions.moveAxis.IsPressed;
 
         // Update lateral movement if appropriate
         if (moveAxisPressed || ownerCharacterController.velocity.sqrMagnitude > 0.0f)
@@ -151,7 +117,7 @@ public class PlayerCharacterController : MonoBehaviour {
             float horizontalAccelerationScalar = 1.0f;
             if (moveAxisPressed)
             {
-                Vector2 moveInput = new Vector2(ownerCharacterActions.moveAxis.X, ownerCharacterActions.moveAxis.Y);
+                Vector2 moveInput = new Vector2(playerActions.moveAxis.X, playerActions.moveAxis.Y);
                 horizontalDirection = ownerCamera.transform.TransformDirection(new Vector3(moveInput.x, 0.0f, moveInput.y));
                 horizontalDirection.y = 0.0f;
                 horizontalAccelerationScalar = Mathf.Clamp(moveInput.magnitude, -1.0f, 1.0f);
@@ -178,7 +144,7 @@ public class PlayerCharacterController : MonoBehaviour {
         if (ownerCharacterController.isGrounded)
         {
             // Start when pressed
-            if (ownerCharacterActions.jump.WasPressed)
+            if (playerActions.jump.WasPressed)
             {
                 verticalSpeed = jumpAcceleration;
                 fatJumping = true;
@@ -199,7 +165,7 @@ public class PlayerCharacterController : MonoBehaviour {
             if (fatJumping)
             {
                 // End fat jump when jump released or we go beyond the maximum time
-                if (!ownerCharacterActions.jump.IsPressed || Time.time - jumpStartTimeStamp > fatJumpTime)
+                if (!playerActions.jump.IsPressed || Time.time - jumpStartTimeStamp > fatJumpTime)
                 {
                     fatJumping = false;
                     verticalSpeed -= gravity * Time.deltaTime;
@@ -259,16 +225,16 @@ public class PlayerCharacterController : MonoBehaviour {
         }
 
         // Interact with selected interactable if appropriate
-        if (ownerCharacterActions.interact.WasPressed && selectedInteractable)
+        if (playerActions.interact.WasPressed && selectedInteractable)
         {
-            selectedInteractable.Interact();
+            selectedInteractable.TryInteract();
         }
     }
 
     Vector3 GetHorizontalAcceleration(Vector3 movementDirection, float maxAccelerationScalar, float deltaTime)
     {
         // Accelerate or decelerate depending on whether movement is pressed
-        accelerationProgress = Mathf.Lerp(0.0f, 1.0f, accelerationProgress + deltaTime * (1.0f / accelerationTime) * (ownerCharacterActions.moveAxis.IsPressed ? 1.0f : -1.0f));
+        accelerationProgress = Mathf.Lerp(0.0f, 1.0f, accelerationProgress + deltaTime * (1.0f / accelerationTime) * (playerActions.moveAxis.IsPressed ? 1.0f : -1.0f));
 
         // Final movement vector is the acceleration curve at acceleration progress * maxSpeed * direction
         return (movementDirection * Mathf.Min(accelerationCurve.Evaluate(accelerationProgress), maxAccelerationScalar) * maxMovementSpeed) * deltaTime;

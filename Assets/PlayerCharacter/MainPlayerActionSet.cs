@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using InControl;
 
-public class PlayerCharacterActions : PlayerActionSet {
+public class MainPlayerActionSet : PlayerActionSet {
 
     public PlayerAction moveLeft;
     public PlayerAction moveRight;
@@ -13,7 +13,7 @@ public class PlayerCharacterActions : PlayerActionSet {
     public PlayerAction jump;
     public PlayerAction interact;
 
-    public PlayerCharacterActions()
+    public MainPlayerActionSet()
     {
         moveLeft = CreatePlayerAction("Move Left");
         moveRight = CreatePlayerAction("Move Right");

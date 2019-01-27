@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class VacuumController : MonoBehaviour {
 
@@ -17,7 +18,7 @@ public class VacuumController : MonoBehaviour {
 		if(GameObject.FindWithTag("Dirt")){
 			//game is ongoing
 			//collect all of the dirt
-			vacPos += new Vector3(Input.GetAxis("Horizontal")*speed*Time.deltaTime,Input.GetAxis("Vertical")*speed*Time.deltaTime,0f);
+			vacPos += new Vector3(HorizontalInput()*speed*Time.deltaTime,VerticalInput()*speed*Time.deltaTime,0f);
 			GetComponent<Rigidbody2D>().MovePosition(vacPos);
 		} else{
 			//end vacuum game
@@ -31,6 +32,26 @@ public class VacuumController : MonoBehaviour {
 				}
 				GameObject.FindWithTag("VacuumManager").GetComponent<VacuumGameManager>().EndMinigame();
 			}
+		}
+	}
+
+	float HorizontalInput(){
+		if(Input.GetKey(KeyCode.A) || InputManager.ActiveDevice.LeftStickLeft.IsPressed){
+			return -1f;
+		} else if(Input.GetKey(KeyCode.D) || InputManager.ActiveDevice.LeftStickRight.IsPressed){
+			return 1f;
+		} else{
+			return 0f;
+		}
+	}
+
+	float VerticalInput(){
+		if(Input.GetKey(KeyCode.W) || InputManager.ActiveDevice.LeftStickUp.IsPressed){
+			return 1f;
+		} else if(Input.GetKey(KeyCode.S) || InputManager.ActiveDevice.LeftStickDown.IsPressed){
+			return -1f;
+		} else{
+			return 0f;
 		}
 	}
 }
