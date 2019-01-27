@@ -5,6 +5,7 @@ using UnityEngine;
 public class YarnHandler : MonoBehaviour 
 {
     public float force;
+    public float lift;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class YarnHandler : MonoBehaviour
 
             dir = -dir.normalized;
             GetComponent<Rigidbody>().AddForce(dir * force);
+            GetComponent<Rigidbody>().AddForce(Vector3.up * lift);
         }
     }
 }
