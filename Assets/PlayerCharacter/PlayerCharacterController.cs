@@ -67,6 +67,18 @@ public class PlayerCharacterController : MonoBehaviour {
     // The currently selected interactable
     BaseInteraction selectedInteractable;
 
+    // Whether movement input is currently enabled
+    bool movementInputEnabled = true;
+
+    // Whether walking is currently enabled
+    bool walkingEnabled = true;
+
+    // Whether jumping is currently enabled
+    bool jumpingEnabled = true;
+
+    // Whether interaction is currently enabled
+    bool interactionEnabled = true;
+
     void Start () {
         // Grab refs
         if (!ownerCharacterController)
@@ -117,7 +129,7 @@ public class PlayerCharacterController : MonoBehaviour {
         // Cache local variables
         Vector3 movementAcceleration = Vector3.zero;
         float deltaTime = Time.deltaTime;
-        bool moveAxisPressed = playerActions.moveAxis.IsPressed;
+        bool moveAxisPressed = playerActions.moveAxis.IsPressed && CanWalk();
 
         // Update lateral movement if appropriate
         if (moveAxisPressed || ownerCharacterController.velocity.sqrMagnitude > 0.0f)
@@ -163,7 +175,7 @@ public class PlayerCharacterController : MonoBehaviour {
         if (ownerCharacterController.isGrounded)
         {
             // Start when pressed
-            if (playerActions.jump.WasPressed)
+            if (playerActions.jump.WasPressed && CanJump())
             {
                 verticalSpeed = jumpAcceleration;
                 fatJumping = true;
@@ -246,7 +258,7 @@ public class PlayerCharacterController : MonoBehaviour {
         }
 
         // Interact with selected interactable if appropriate
-        if (playerActions.interact.WasPressed && selectedInteractable)
+        if (playerActions.interact.WasPressed && selectedInteractable && CanInteract())
         {
             selectedInteractable.TryInteract();
         }
@@ -290,4 +302,8 @@ public class PlayerCharacterController : MonoBehaviour {
             }
         }
     }
+
+    bool CanJump() { return movementInputEnabled && walkingEnabled; }
+    bool CanWalk() { return movementInputEnabled && jumpingEnabled; }
+    bool CanInteract() { return interactionEnabled; }
 }
