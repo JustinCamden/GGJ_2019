@@ -13,6 +13,9 @@ public class PhoneManager : MonoBehaviour {
 	public KeyCode primaryButton;
 	public KeyCode secondaryButton;
 
+	//You instantiate this alert whenever you receive a new text message
+	public GameObject messageAlert;
+
 	//The primary phone screen is the initial 4 options
 	public GameObject primaryPhoneScreen;
 		//the messages screen
@@ -248,6 +251,7 @@ public class PhoneManager : MonoBehaviour {
 	//Sorry to keep these as prefabs, could redo as something more robust. more similar to the notes system
 	public void AddMessage(GameObject newMessage){
 		messageList.Add(newMessage);
+		Instantiate(messageAlert,transform.position,Quaternion.identity);
 	}
 
 	//Call this from anywhere to add notes to the player's phone! They will be kept in the order that the player 'unlocks' them
