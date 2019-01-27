@@ -90,6 +90,8 @@ public class BaseInteraction : MonoBehaviour {
 		// do stuff here!
 		// turn lights on/off, play sound, trigger animations
 		// enable/disable GameObjects
+		pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+		pCC.movementInputEnabled = true;
 	}
 
 	public virtual void StartMinigame () {

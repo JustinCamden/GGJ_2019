@@ -88,11 +88,12 @@ public class DialogueRunner : MonoBehaviour {
 		
 
 
-		if (window.interaction != null)
+		if (window.interaction != null || currentWindow >= currentWindows.Count)
 		{
 			textMesh.text = "";
 			textMesh.Rebuild();
 			UIWindow.SetActive(false);
+			currentWindow = 0;
 			window.interaction.DialogueInteract();
 			yield break;
 		}
