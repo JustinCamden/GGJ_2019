@@ -28,6 +28,18 @@ public class BaseInteraction : MonoBehaviour {
 	private InputDevice controller;
 	private  AudioSource source;
 
+    public void Awake()
+    {
+        if (interactSprite)
+        {
+            interactSprite.SetActive(false);
+        }
+        if (soundShouldPlay)
+        {
+            source = GetComponent<AudioSource>();
+        }
+    }
+
 	public void TryInteract()
 	{
 		// checks to see if it should Start a Minigame, Start a Dialogue, Darken the screen, or just Interact. 
@@ -79,48 +91,6 @@ public class BaseInteraction : MonoBehaviour {
 		//grab controller
 		controller = InputManager.ActiveDevice;
 	}
-
-	void Awake()
-	{
-		if (soundShouldPlay)
-		{
-			source = GetComponent<AudioSource>();
-		}
-	}
-
-	private void OnTriggerEnter(Collider other)
-    {
-        // once player enters, set sprite on 
-        // interactSprite.SetActive(true);
-    }
-
-    private void OnTriggerStay (Collider other)
-	{
-		// waits for user input 
-		if (interactEnabled)
-		{
-			if (!interactSprite.activeInHierarchy)
-			{
-				interactSprite.SetActive(true);
-			}
-
-		}
-		else
-		{
-			if (interactSprite.activeInHierarchy)
-			{
-				interactSprite.SetActive(false);
-			}
-		}
-		
-
-	}
-
-    private void OnTriggerExit(Collider other)
-    {
-        // once exits sets arrow to false 
-        // interactSprite.SetActive(false);
-    }
 
     public void OnSelected()
     {

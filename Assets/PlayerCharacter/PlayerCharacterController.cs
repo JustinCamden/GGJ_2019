@@ -216,7 +216,7 @@ public class PlayerCharacterController : MonoBehaviour {
                 }
 
                 // Select new best
-                bestInteractable = selectedInteractable;
+                selectedInteractable = bestInteractable;
                 if (selectedInteractable)
                 {
                     selectedInteractable.OnSelected();
