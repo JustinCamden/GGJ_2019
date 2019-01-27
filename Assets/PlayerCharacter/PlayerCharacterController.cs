@@ -37,6 +37,15 @@ public class PlayerCharacterController : MonoBehaviour {
     [Tooltip("The collider we use for detecting interactables.")]
     public ChildCollider interactionCollider;
 
+    [Tooltip("The animator for the character.")]
+    public Animator characterAnimator;
+
+    // The name of the jump variable for the animator
+    const string jumpAnimKey = "Jumping";
+
+    // The name of the walk variable for the animator
+    const string walkAnimKey = "Walking";
+
     // Our current position along the curve
     float accelerationProgress = 0.0f;
 
@@ -91,6 +100,10 @@ public class PlayerCharacterController : MonoBehaviour {
             interactionCollider.onChildTriggerEnter += OnInteractionTriggerEnter;
             interactionCollider.onChildTriggerExit += OnInteractionTriggerExit;
         }
+        if (!characterAnimator)
+        {
+            characterAnimator = GetComponentInChildren<Animator>();
+        }
 
         playerActions = PlayerInputManager.PlayerActions;
 
@@ -138,6 +151,12 @@ public class PlayerCharacterController : MonoBehaviour {
                 // Rotate towards the movement direction
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(horizontalDirection), movementTurningSpeed * deltaTime);
             }
+
+            characterAnimator.SetBool(walkAnimKey, true);
+        }
+        else
+        {
+            characterAnimator.SetBool(walkAnimKey, false);
         }
 
         // Update jump state
@@ -149,12 +168,14 @@ public class PlayerCharacterController : MonoBehaviour {
                 verticalSpeed = jumpAcceleration;
                 fatJumping = true;
                 jumpStartTimeStamp = Time.time;
+                characterAnimator.SetBool(jumpAnimKey, true);
             }
             // Stop when on the ground
             else
             {
                 verticalSpeed = -gravity;
                 fatJumping = false;
+                characterAnimator.SetBool(jumpAnimKey, false);
             }
         }
 
