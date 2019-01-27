@@ -22,6 +22,7 @@ public class FigureHandler : MonoBehaviour {
     {
         fh = this;
         rb = GetComponent<Rigidbody>();
+        transform.position = new Vector3(transform.position.x, -1.92f, transform.position.z);
     }
 
     // Update is called once per frame
@@ -39,9 +40,9 @@ public class FigureHandler : MonoBehaviour {
 
 
             if (Input.GetAxis("Vertical") > 0) // Moves between shelves with the figure placement
-                transform.position = new Vector3(transform.position.x, 0.02f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, -0.72f, transform.position.z);
             if (Input.GetAxis("Vertical") < 0)
-                transform.position = new Vector3(transform.position.x, -1.24f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, -1.92f, transform.position.z);
 
             if (Input.GetKeyUp(KeyCode.Space) || InputManager.ActiveDevice.Action1.WasPressed && !isBlocked)
                 PlaceFigure();
