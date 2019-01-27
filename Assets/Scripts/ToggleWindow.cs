@@ -42,6 +42,7 @@ public class ToggleWindow : BaseInteraction
             //anim.SetBool("WindowStayDownBool", false);
             interactionAnim.SetBool("WindowStayUpBool", true);
             interactionAnim.SetBool("WindowStayDownBool", false);
+            interactEnabled = true;
             //windowSound.Play(0);
 
         }
@@ -52,6 +53,7 @@ public class ToggleWindow : BaseInteraction
             //anim.SetBool("WindowStayUpBool", false);
             interactionAnim.SetBool("WindowStayUpBool", false);
             interactionAnim.SetBool("WindowStayDownBool", true);
+            interactEnabled = true;
             //windowSound.Play(0);
                 //so again, we want to close the window, so set the 
                 //connection from the animation tree to trigger appropriate
