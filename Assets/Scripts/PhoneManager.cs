@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 //using UnityEngine.SceneManagement;
+using InControl;
 
 public class PhoneManager : MonoBehaviour {
 
@@ -57,7 +58,7 @@ public class PhoneManager : MonoBehaviour {
 
 		if(active){
 			if(primaryPhoneScreen.activeInHierarchy){
-				if(Input.GetKeyDown(primaryButton)){
+				if(InputManager.ActiveDevice.Action1.WasPressed || Input.GetKeyDown(primaryButton)){
 					switch(mainIndex){
 						case(0): //messages
 							OpenMessages();
@@ -74,7 +75,7 @@ public class PhoneManager : MonoBehaviour {
 					}
 				}
 				//let the player change which option they have selected.
-				if(Input.GetKeyDown(KeyCode.W)){
+				if(Input.GetKeyDown(KeyCode.W) || InputManager.ActiveDevice.LeftStickUp.WasPressed){
 					mainIndex -= 1;
 					//reset main index if you need to
 					if(mainIndex < 0){
@@ -87,7 +88,7 @@ public class PhoneManager : MonoBehaviour {
 								primaryButtons[i].interactable = true;
 							}
 					}
-				} else if(Input.GetKeyDown(KeyCode.S)){
+				} else if(Input.GetKeyDown(KeyCode.S) || InputManager.ActiveDevice.LeftStickDown.WasPressed){
 					mainIndex += 1;
 					//reset main index if you need to
 					if(mainIndex > 3){
@@ -105,12 +106,12 @@ public class PhoneManager : MonoBehaviour {
 
 
 			} else if(secondaryNotes.activeInHierarchy){
-				if(Input.GetKeyDown(KeyCode.A)){
+				if(Input.GetKeyDown(KeyCode.A) || InputManager.ActiveDevice.LeftStickLeft.WasPressed){
 					noteIndex -= 1;
 					if(noteIndex < 0){
 						noteIndex = noteList.Count - 1;
 					}
-				} else if(Input.GetKeyDown(KeyCode.D)){
+				} else if(Input.GetKeyDown(KeyCode.D) || InputManager.ActiveDevice.LeftStickRight.WasPressed){
 					noteIndex += 1;
 					if(noteIndex >= noteList.Count){
 						noteIndex = 0;
@@ -138,7 +139,7 @@ public class PhoneManager : MonoBehaviour {
 
 			} else if(secondaryExit.activeInHierarchy){
 				//Player is trying to exit
-				if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S)){
+				if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || InputManager.ActiveDevice.LeftStickUp.WasPressed || InputManager.ActiveDevice.LeftStickDown.WasPressed){
 					//Change between "confirm" and "cancel"
 					exitIndex = !exitIndex;
 					if(exitIndex){
@@ -150,7 +151,7 @@ public class PhoneManager : MonoBehaviour {
 						}
 				}
 				//Actually press "Space" or whatever primary button
-				if(Input.GetKeyDown(primaryButton)){
+				if(Input.GetKeyDown(primaryButton) || InputManager.ActiveDevice.Action1.WasPressed){
 					if(!exitIndex){
 							//confirm exit
 							ExitGame();
@@ -164,7 +165,7 @@ public class PhoneManager : MonoBehaviour {
 
 
 
-			if(Input.GetKeyDown(secondaryButton)){
+			if(Input.GetKeyDown(secondaryButton) || InputManager.ActiveDevice.Command.WasPressed){
 				//If you hit escape:
 				
 				if(secondaryExit.activeInHierarchy || secondaryNotes.activeInHierarchy || secondaryMessages.activeInHierarchy){
@@ -175,7 +176,7 @@ public class PhoneManager : MonoBehaviour {
 				}
 			}
 		} else{
-			if(Input.GetKeyDown(secondaryButton)){
+			if(Input.GetKeyDown(secondaryButton) || InputManager.ActiveDevice.Command.WasPressed){
 				//If the phone is not already active and you hit escape, open the phone
 				ActivatePhone();
 			}
