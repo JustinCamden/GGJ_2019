@@ -7,41 +7,24 @@ using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour 
 {
-    public Sprite logo;
-
     [Header("Main Menu")]
-    public GameObject mMenu;
     public Button bStart;
     public Button bExit;
-    public Button bSettings;
 
     [Space]
     [Header("Settings Menu")]
-    public GameObject mSettings;
-    public Button bFullscreen;
     public AudioMixer masterMixer;
     public AudioSource sourceAudio;
 
     private void Start()
     {
         bStart.onClick.AddListener(() => StartGame());
-        bSettings.onClick.AddListener(() => switchToOption());
         bExit.onClick.AddListener(() => QuitGame());
-    }
-
-    private void Update()
-    {
-
     }
 
     void StartGame()
     {
         SceneManager.LoadScene(1);
-    }
-
-    void switchToOption()
-    {
-        mMenu.SetActive(false);
     }
 
     void QuitGame()
@@ -61,5 +44,4 @@ public class MainMenu : MonoBehaviour
     {
         masterMixer.SetFloat("volMusic", musicLvl);
     }
-
 }

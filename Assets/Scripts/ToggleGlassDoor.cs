@@ -74,7 +74,7 @@ public class ToggleGlassDoor : BaseInteraction
         // Update is called once per frame
         void Update()
         {
-            
+            interactEnabled = true;
         }
 
     }

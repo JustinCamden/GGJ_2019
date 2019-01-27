@@ -46,21 +46,21 @@ public class FigureHandler : MonoBehaviour {
             if (Input.GetAxis("Vertical") < 0)
                 transform.position = new Vector3(transform.position.x, -1.92f, transform.position.z);
 
-            if (Input.GetKeyUp(KeyCode.Space) || InputManager.ActiveDevice.Action1.WasPressed && !isBlocked)
+            if (Input.GetKeyUp(KeyCode.Space) && !isBlocked || InputManager.ActiveDevice.Action1.WasPressed && !isBlocked)
                 PlaceFigure();
         }
     }
 
     void SwitchFigure() // Switches the detector in the placer
     {
-        curFigure = Instantiate(detectors[figTracker], fh.gameObject.transform.position, fh.gameObject.transform.rotation) as GameObject; //Instantiates next poster for the poster minigame
+        curFigure = Instantiate(detectors[figTracker], fh.gameObject.transform.position, Quaternion.identity) as GameObject; //Instantiates next poster for the poster minigame
         curFigure.transform.SetParent(fh.gameObject.transform); // Assigns it to move along with the controller
         hasFigure = true;
     }
 
     void PlaceFigure() // Spawns the actual figure in the current position of the detector
     {
-        Instantiate(figures[figTracker], fh.transform.position, fh.transform.rotation);
+        Instantiate(figures[figTracker], fh.transform.position, Quaternion.identity);
         figTracker += 1;
         curFigure.SetActive(false);
 
