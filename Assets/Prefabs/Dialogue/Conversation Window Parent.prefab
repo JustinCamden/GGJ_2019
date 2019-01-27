@@ -82,14 +82,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470679902027942}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.31387788, y: 0.31387788, z: 0.31387788}
+  m_LocalRotation: {x: 0.027747128, y: 0.999615, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.070705}
+  m_LocalScale: {x: 0.21635288, y: 0.21635288, z: 0.21635288}
   m_Children:
   - {fileID: 4980272718846010}
   m_Father: {fileID: 4670114190843314}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 3.18}
 --- !u!4 &4670114190843314
 Transform:
   m_ObjectHideFlags: 1
@@ -238,11 +238,11 @@ MonoBehaviour:
   textMesh: {fileID: 0}
   rawTopLeftBounds: {x: 0, y: 0, z: 0}
   rawBottomRightBounds: {x: -14.5, y: 1.5, z: 0}
-  topLeftBounds: {x: 5.468754, y: 2.5074053, z: -9.67349}
-  topRightBounds: {x: 0.91752434, y: 2.5074053, z: -9.67349}
-  bottomLeftBounds: {x: 5.468754, y: 2.0365884, z: -9.67349}
-  bottomRightBounds: {x: 0.91752434, y: 2.0365884, z: -9.67349}
-  centerBounds: {x: 3.193139, y: 2.271997, z: -9.67349}
+  topLeftBounds: {x: 4.8010297, y: 2.0718977, z: -9.753948}
+  topRightBounds: {x: 1.6687424, y: 2.2459226, z: -9.753948}
+  bottomLeftBounds: {x: 4.783027, y: 1.7478682, z: -9.753948}
+  bottomRightBounds: {x: 1.6507399, y: 1.9218931, z: -9.753948}
+  centerBounds: {x: 3.225885, y: 1.9968954, z: -9.753948}
   onCompleteEvent:
     m_PersistentCalls:
       m_Calls: []
