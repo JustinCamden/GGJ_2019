@@ -37,3 +37,23 @@ Assets/Plugins/Editor/JetBrains/JetBrains\.Rider\.Unity\.Editor\.Plugin\.Repacke
 *.blend
 
 *.blend1
+
+Assets/Models/DaltonsBadModels/baseHouse\.blend\.meta
+
+Assets/Models/DaltonsBadModels/cactuar\.blend\.meta
+
+Assets/Models/DaltonsBadModels/cactuar\.blend1\.meta
+
+Assets/Models/DaltonsBadModels/candle\.blend\.meta
+
+Assets/Models/DaltonsBadModels/dustbuster\.blend\.meta
+
+Assets/Models/DaltonsBadModels/island\.blend\.meta
+
+Assets/Models/DaltonsBadModels/TShirt\.blend\.meta
+
+Assets/Models/DaltonsBadModels/TShirt\.blend1\.meta
+
+Assets/Models/DaltonsBadModels/VinylCase\.blend\.meta
+
+Assets/Models/DaltonsBadModels/VinylCase\.blend1\.meta
