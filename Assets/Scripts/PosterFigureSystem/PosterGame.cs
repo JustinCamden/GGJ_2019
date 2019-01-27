@@ -67,7 +67,7 @@ public class PosterGame : MonoBehaviour
     {
         GameObject curPost = Instantiate(posterPrefabs[nextPost], pg.gameObject.transform.position, placementBoard.gameObject.transform.rotation) as GameObject; //Instantiates next poster for the poster minigame
         curPost.transform.SetParent(pg.gameObject.transform); // Assigns it to move along with the controller
-        curPost.GetComponent<SpriteRenderer>().sortingOrder = -6 + currentLayer; // Allows posters to overlap
+        curPost.GetComponent<SpriteRenderer>().sortingOrder = -7 + currentLayer; // Allows posters to overlap
         hasPoster = true; 
         currentPoster = curPost; // Reference for the Update function to use
         currentLayer += 1;
