@@ -138,13 +138,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1603180530139276}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -13.9262905, y: 2.1109867, z: -5.796438}
   m_LocalScale: {x: 52.830032, y: 36.29, z: 1}
   m_Children: []
   m_Father: {fileID: 4800690608881770}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4060558775168064
 Transform:
   m_ObjectHideFlags: 1
@@ -488,6 +488,7 @@ MonoBehaviour:
   - {fileID: 1905089488813268, guid: d19cc9cfa7b804d87a9f2517eb7f6a7b, type: 2}
   - {fileID: 1375210899113030, guid: 04bf3e9e1c6fe4725b0c61d60cf9f453, type: 2}
   - {fileID: 1850056825243854, guid: 733a5e5f4948a4f77b811906e4ffe117, type: 2}
+  - {fileID: 1990324728654884, guid: 976363f6e8f4a4198988d336557a7a11, type: 2}
   placementBoard: {fileID: 1603180530139276}
 --- !u!212 &212500817890385940
 SpriteRenderer:
