@@ -42,7 +42,7 @@ public class FigureHandler : MonoBehaviour {
 
 
             if (Input.GetAxis("Vertical") > 0) // Moves between shelves with the figure placement
-                transform.position = new Vector3(transform.position.x, -0.72f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, -0.72f, transform.position.z); //change to -0.86f if too high
             if (Input.GetAxis("Vertical") < 0)
                 transform.position = new Vector3(transform.position.x, -1.92f, transform.position.z);
 
