@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using InControl;
 
-public class PosterGameInteraction : BaseInteraction
+public class FigureGameInteraction : BaseInteraction
 {
-    public PosterGame pG;
+    public FigureHandler fH;
     public GameObject boxToDisable;
     
     public override void Interact()
     {
-        pG.PosterMinigame();
+        fH.FigureStart();
         boxToDisable.SetActive(false);
-        CameraRailer.cr.MoveCamera(CameraRailer.cr.posterMiniTrans, CameraRailer.cr.posterMiniSize);
+        CameraRailer.cr.MoveCamera(CameraRailer.cr.figureMiniTrans, CameraRailer.cr.figureMiniSize);
     }
 }

@@ -62,7 +62,13 @@ public class FigureHandler : MonoBehaviour {
         curFigure.SetActive(false);
 
         if (figTracker != figures.Length)
+        {
             SwitchFigure();
+        }
+        else
+        {
+            CameraRailer.cr.MoveCamera(CameraRailer.cr.overWorldTrans, CameraRailer.cr.overWorldSize);
+        }
 
     }
 

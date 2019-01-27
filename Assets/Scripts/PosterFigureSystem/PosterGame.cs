@@ -52,6 +52,8 @@ public class PosterGame : MonoBehaviour
                     //placementBoard.transform.rotation = Quaternion.Euler(0, -24.7f, 1.9f); // But honestly will probably still hardcode in final scene.
                     //placementBoard.transform.localScale = new Vector3(20, 15, 1); // It works tho.
                     //Camera system made all of this scaling useless. Yayyyyyyy
+                    CameraRailer.cr.MoveCamera(CameraRailer.cr.overWorldTrans, CameraRailer.cr.overWorldSize);
+                    
                 }
             }
         }

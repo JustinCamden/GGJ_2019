@@ -21,5 +21,6 @@ public class MaterialChanger : BaseInteraction {
 		}
 
 		currentMat++;
+		interactEnabled = true;
 	}
 }

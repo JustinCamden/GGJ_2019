@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRailer : MonoBehaviour {
-
+public class CameraRailer : MonoBehaviour
+{
+    public static CameraRailer cr;
     private Transform camTrans;
     private Camera c;
     public float duration;
@@ -26,7 +27,8 @@ public class CameraRailer : MonoBehaviour {
     {
         camTrans = GetComponent<Transform>();
         c = Camera.main;
-	}
+        cr = this;
+    }
 	
 	// Update is called once per frame
 	void Update () 
