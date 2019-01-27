@@ -316,11 +316,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1203429525271114, guid: d72148b4331a04bbc85efa89ea8ab320, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1974391617787388, guid: d72148b4331a04bbc85efa89ea8ab320, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4369042472105758, guid: d72148b4331a04bbc85efa89ea8ab320, type: 2}
       propertyPath: m_LocalScale.x
@@ -1287,7 +1287,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
