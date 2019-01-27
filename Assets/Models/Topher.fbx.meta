@@ -1,14 +1,76 @@
 fileFormatVersion: 2
-guid: 3df622b7a2e764a4eb05578dae4b4152
+guid: 778172f2d2a6341fc8d0cb0b1fa989c8
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: BedSheet
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: NiceSHeet
+    100000: pCube2
+    100002: pCube4
+    100004: pCube5
+    100006: pCylinder10
+    100008: pCylinder11
+    100010: pCylinder12
+    100012: pCylinder13
+    100014: pCylinder14
+    100016: pCylinder15
+    100018: pCylinder16
+    100020: pCylinder17
+    100022: pCylinder7
+    100024: Shorts
+    100026: //RootNode
+    100028: transform10
+    100030: transform5
+    100032: transform6
+    100034: transform7
+    100036: transform8
+    100038: transform9
+    400000: pCube2
+    400002: pCube4
+    400004: pCube5
+    400006: pCylinder10
+    400008: pCylinder11
+    400010: pCylinder12
+    400012: pCylinder13
+    400014: pCylinder14
+    400016: pCylinder15
+    400018: pCylinder16
+    400020: pCylinder17
+    400022: pCylinder7
+    400024: Shorts
+    400026: //RootNode
+    400028: transform10
+    400030: transform5
+    400032: transform6
+    400034: transform7
+    400036: transform8
+    400038: transform9
+    2100000: Eye
+    2100002: Pupil
+    2100004: Shirt
+    2100006: Fur
+    2100008: kittyGray
+    2100010: Jeans
+    2100012: Ears
+    2300000: pCube2
+    2300002: pCube4
+    2300004: pCube5
+    2300006: pCylinder15
+    2300008: pCylinder16
+    2300010: pCylinder17
+    2300012: Shorts
+    3300000: pCube2
+    3300002: pCube4
+    3300004: pCube5
+    3300006: pCylinder15
+    3300008: pCylinder16
+    3300010: pCylinder17
+    3300012: Shorts
+    4300000: pCube4
+    4300002: pCylinder15
+    4300004: Shorts
+    4300006: pCube2
+    4300008: pCube5
+    4300010: pCylinder16
+    4300012: pCylinder17
   externalObjects: {}
   materials:
     importMaterials: 1
