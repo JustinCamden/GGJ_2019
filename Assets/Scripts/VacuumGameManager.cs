@@ -8,6 +8,7 @@ public class VacuumGameManager : MonoBehaviour {
 	public GameObject dirtPrefab;
 	public bool active;
 	public GameObject vacuum;
+	public Camera myCam;
 
 	[Header("RealWorld Items")]
 	public GameObject[] itemsToRemove;
@@ -33,9 +34,9 @@ public class VacuumGameManager : MonoBehaviour {
 		}
 
 		Vector3 topLeftScreenAnchor;
-			topLeftScreenAnchor = Camera.main.ScreenToWorldPoint(new Vector3(0f,0f,7f));
+			topLeftScreenAnchor = myCam.ScreenToWorldPoint(new Vector3(0f,0f,7f));
 		Vector3 bottomRightScreenAnchor;
-			bottomRightScreenAnchor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,7f));
+			bottomRightScreenAnchor = myCam.ScreenToWorldPoint(new Vector3(Screen.width,Screen.height,7f));
 			print(bottomRightScreenAnchor);
 
 		for(int i=0;i<dirtPopulation;i++){
