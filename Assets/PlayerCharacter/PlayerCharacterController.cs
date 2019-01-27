@@ -52,9 +52,6 @@ public class PlayerCharacterController : MonoBehaviour {
     // Our current vertical speed
     float verticalSpeed = 0.0f;
 
-    // Player character actions instance
-    MainPlayerActionSet playerActions;
-
     // The start time of the last jump
     float jumpStartTimeStamp;
 
@@ -117,8 +114,6 @@ public class PlayerCharacterController : MonoBehaviour {
             characterAnimator = GetComponentInChildren<Animator>();
         }
 
-        playerActions = PlayerInputManager.PlayerActions;
-
         // Initialize lists
         overlappingInteractables = new List<Collider>();
     }
@@ -129,7 +124,7 @@ public class PlayerCharacterController : MonoBehaviour {
         // Cache local variables
         Vector3 movementAcceleration = Vector3.zero;
         float deltaTime = Time.deltaTime;
-        bool moveAxisPressed = playerActions.moveAxis.IsPressed && CanWalk();
+        bool moveAxisPressed = PlayerInputManager.PlayerActions.moveAxis.IsPressed && CanWalk();
 
         // Update lateral movement if appropriate
         if (moveAxisPressed || ownerCharacterController.velocity.sqrMagnitude > 0.0f)
@@ -142,7 +137,7 @@ public class PlayerCharacterController : MonoBehaviour {
             float horizontalAccelerationScalar = 1.0f;
             if (moveAxisPressed)
             {
-                Vector2 moveInput = new Vector2(playerActions.moveAxis.X, playerActions.moveAxis.Y);
+                Vector2 moveInput = new Vector2(PlayerInputManager.PlayerActions.moveAxis.X, PlayerInputManager.PlayerActions.moveAxis.Y);
                 horizontalDirection = ownerCamera.transform.TransformDirection(new Vector3(moveInput.x, 0.0f, moveInput.y));
                 horizontalDirection.y = 0.0f;
                 horizontalAccelerationScalar = Mathf.Clamp(moveInput.magnitude, -1.0f, 1.0f);
@@ -175,7 +170,7 @@ public class PlayerCharacterController : MonoBehaviour {
         if (ownerCharacterController.isGrounded)
         {
             // Start when pressed
-            if (playerActions.jump.WasPressed && CanJump())
+            if (PlayerInputManager.PlayerActions.jump.WasPressed && CanJump())
             {
                 verticalSpeed = jumpAcceleration;
                 fatJumping = true;
@@ -198,7 +193,7 @@ public class PlayerCharacterController : MonoBehaviour {
             if (fatJumping)
             {
                 // End fat jump when jump released or we go beyond the maximum time
-                if (!playerActions.jump.IsPressed || Time.time - jumpStartTimeStamp > fatJumpTime)
+                if (!PlayerInputManager.PlayerActions.jump.IsPressed || Time.time - jumpStartTimeStamp > fatJumpTime)
                 {
                     fatJumping = false;
                     verticalSpeed -= gravity * Time.deltaTime;
@@ -258,7 +253,7 @@ public class PlayerCharacterController : MonoBehaviour {
         }
 
         // Interact with selected interactable if appropriate
-        if (playerActions.interact.WasPressed && selectedInteractable && CanInteract())
+        if (PlayerInputManager.PlayerActions.interact.WasPressed && selectedInteractable && CanInteract())
         {
             selectedInteractable.TryInteract();
         }
@@ -267,7 +262,7 @@ public class PlayerCharacterController : MonoBehaviour {
     Vector3 GetHorizontalAcceleration(Vector3 movementDirection, float maxAccelerationScalar, float deltaTime)
     {
         // Accelerate or decelerate depending on whether movement is pressed
-        accelerationProgress = Mathf.Lerp(0.0f, 1.0f, accelerationProgress + deltaTime * (1.0f / accelerationTime) * (playerActions.moveAxis.IsPressed ? 1.0f : -1.0f));
+        accelerationProgress = Mathf.Lerp(0.0f, 1.0f, accelerationProgress + deltaTime * (1.0f / accelerationTime) * (PlayerInputManager.PlayerActions.moveAxis.IsPressed ? 1.0f : -1.0f));
 
         // Final movement vector is the acceleration curve at acceleration progress * maxSpeed * direction
         return (movementDirection * Mathf.Min(accelerationCurve.Evaluate(accelerationProgress), maxAccelerationScalar) * maxMovementSpeed) * deltaTime;
