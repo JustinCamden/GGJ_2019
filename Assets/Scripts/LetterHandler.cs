@@ -26,13 +26,15 @@ public class LetterHandler : MonoBehaviour {
     IEnumerator ShowLetter()
     {
         yield return new WaitForSeconds(1f);
-        letter.DOMoveY(550, 3f, true);
+        letter.DOMoveY(550, 16f, true);
         a.Play();
         yield return new WaitUntil(() => (InputManager.ActiveDevice.Action1.WasPressed == true) || Input.GetKeyDown(KeyCode.Space));
-        letter.DOMoveY(-2000, 2f, true);
+        letter.DOMoveY(-2000, 8f, true);
         yield return new WaitForSeconds(1f);
         i.DOFade(0, 3);
         yield return new WaitForSeconds(1f);
         pCC.movementInputEnabled = true;
+        yield return new WaitForSeconds(5f);
+        gameObject.SetActive(false);
     }
 }
