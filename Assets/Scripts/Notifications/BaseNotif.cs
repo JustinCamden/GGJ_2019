@@ -49,7 +49,7 @@ public class BaseNotif : MonoBehaviour {
 
 	IEnumerator colorChanger(float timer,Color startCol, Color endCol){
 		float eTime = 0f;
-		while(eTime < timer){
+		while(eTime - 2f < timer){
 			eTime += Time.deltaTime;
 			GetComponent<Image>().color = Color.Lerp(startCol,endCol,(eTime/timer));
 			Text[] textChildren = GetComponentsInChildren<Text>();
@@ -58,7 +58,7 @@ public class BaseNotif : MonoBehaviour {
 			}
 			yield return null;
 		}
-		if(eTime >= timer){
+		if(eTime - 2f >= timer){
 			Destroy(gameObject);
 		}
 	}
