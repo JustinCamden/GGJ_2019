@@ -67,7 +67,7 @@ public class ToggleGlassDoor : BaseInteraction
         void Start()
         {
             window_1 = GetComponent<GameObject>();
-            anim = gameObject.GetComponent<Animator>();
+            //anim = gameObject.GetComponent<Animator>();
             //windowSound = GetComponent<AudioSource>();
         }
 
