@@ -10,6 +10,7 @@ TagManager:
   - Detector
   - VacuumManager
   - Room
+  - Phone
   layers:
   - Default
   - TransparentFX

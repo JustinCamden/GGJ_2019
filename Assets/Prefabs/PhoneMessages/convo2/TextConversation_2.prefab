@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1767471073994178}
+  m_IsPrefabAsset: 1
+--- !u!1 &1767471073994178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4655329048979084}
+  - component: {fileID: 114982204802493574}
+  m_Layer: 0
+  m_Name: TextConversation_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4655329048979084
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767471073994178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.4295287, y: 2.0520282, z: -2.5994954}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114982204802493574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767471073994178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44475af1591eb46ddb47ab0f4a6c6f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMessages:
+  - obj: {fileID: 1191021098635300, guid: 355a616ef3478482ba1bf0550dd0cffa, type: 2}
+    timestamp: 5
+    activated: 0
+  - obj: {fileID: 1406962402957004, guid: 2107d843e1380437191941f7605637c8, type: 2}
+    timestamp: 10
+    activated: 0
+  - obj: {fileID: 1221340312780632, guid: 8366346ac9b23461c9a9fa25bcf4234d, type: 2}
+    timestamp: 15
+    activated: 0
+  - obj: {fileID: 1520696973210936, guid: eb0d980572e174bacb3ebbbf29d6f3dc, type: 2}
+    timestamp: 20
+    activated: 0
+  - obj: {fileID: 1847803924785038, guid: f47709e41c04f4acfa52d131aec70cbf, type: 2}
+    timestamp: 25
+    activated: 0
+  - obj: {fileID: 1989681497271168, guid: 6abc5925288a2426faf884c957e76386, type: 2}
+    timestamp: 30
+    activated: 0
+  - obj: {fileID: 1332075005308024, guid: 4f5fbb37d19e34c8791981fd969eb2dd, type: 2}
+    timestamp: 35
+    activated: 0
+  - obj: {fileID: 1417958075516330, guid: f02a6402c517d4299b545c49dc667589, type: 2}
+    timestamp: 40
+    activated: 0
+  - obj: {fileID: 1730382559420102, guid: 63d2c6e6bee9f4b39acee90e8c8bebbc, type: 2}
+    timestamp: 45
+    activated: 0
+  - obj: {fileID: 1788684726957542, guid: b3a9913ce287549399f084f4627c097d, type: 2}
+    timestamp: 50
+    activated: 0
+  - obj: {fileID: 1025410695290236, guid: 39f4a7327c3e64b71bab796b5bec1a4e, type: 2}
+    timestamp: 55
+    activated: 0
+  - obj: {fileID: 1881419643048984, guid: 06c656649a56c4426887c0c83c0c6130, type: 2}
+    timestamp: 60
+    activated: 0
+  - obj: {fileID: 1249192370185862, guid: 2a270cde293ec439a8681fc7ee74dee2, type: 2}
+    timestamp: 65
+    activated: 0
+  - obj: {fileID: 1199121754598914, guid: 355efacb4681541e29770dfa9c8eb9be, type: 2}
+    timestamp: 70
+    activated: 0
+  - obj: {fileID: 1403641101869188, guid: dad6ced4c696843df8a5ee34b5788930, type: 2}
+    timestamp: 75
+    activated: 0
+  - obj: {fileID: 1269442792215682, guid: f50d09586e0734e46810aaf46589965e, type: 2}
+    timestamp: 80
+    activated: 0
+  - obj: {fileID: 1006460794435534, guid: 986c606becba745c9aea4361408cc4fe, type: 2}
+    timestamp: 85
+    activated: 0
+  - obj: {fileID: 1716675692173588, guid: d3b4745653efd45cf98be8a65ac6b99a, type: 2}
+    timestamp: 90
+    activated: 0
+  - obj: {fileID: 1399101530868804, guid: b5860149c3b894f21a7c783f4602567c, type: 2}
+    timestamp: 95
+    activated: 0
+  - obj: {fileID: 1291721367016998, guid: 3c59828e2c37f441892271b6d424cd1d, type: 2}
+    timestamp: 100
+    activated: 0
+  - obj: {fileID: 1127230549131748, guid: 8a60986c7a22b4910b19175bb4a93cf3, type: 2}
+    timestamp: 105
+    activated: 0
+  - obj: {fileID: 1108488220248980, guid: 14b6b88aae1f74e8fa6348d34a2361a5, type: 2}
+    timestamp: 110
+    activated: 0
+  phone: {fileID: 0}
