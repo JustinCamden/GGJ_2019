@@ -13,11 +13,15 @@ public class LetterHandler : MonoBehaviour {
     public RectTransform letter;
     public Image i;
 
+    PlayerCharacterController pCC;
+
 	// Use this for initialization
 	void Start () 
     {
         StartCoroutine(ShowLetter());
-	}
+        pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+        pCC.movementInputEnabled = false;
+    }
 	
     IEnumerator ShowLetter()
     {
@@ -28,5 +32,7 @@ public class LetterHandler : MonoBehaviour {
         letter.DOMoveY(-2000, 2f, true);
         yield return new WaitForSeconds(1f);
         i.DOFade(0, 3);
+        yield return new WaitForSeconds(1f);
+        pCC.movementInputEnabled = true;
     }
 }
