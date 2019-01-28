@@ -58,5 +58,8 @@ public class BaseNotif : MonoBehaviour {
 			}
 			yield return null;
 		}
+		if(eTime >= timer){
+			Destroy(gameObject);
+		}
 	}
 }
