@@ -266,7 +266,8 @@ AudioSource:
   m_GameObject: {fileID: 1175845469481128}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243627248187336420, guid: 03fc9bbf25bdb413d826cdcdac28ccc4,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -361,7 +362,8 @@ AudioSource:
   m_GameObject: {fileID: 1186132112898618}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243929078573953920, guid: 03fc9bbf25bdb413d826cdcdac28ccc4,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: b550557f1059e4c319b3a46f5a1a580a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -476,6 +478,7 @@ MonoBehaviour:
   interactEnabled: 1
   soundShouldPlay: 1
   shouldFadeInOut: 0
+  isKeyInteraction: 0
   conversationWindows: []
   radioSource: {fileID: 82167973530084094}
   songs:
@@ -484,6 +487,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 735177b4a098c4d3d8a270851e82c546, type: 3}
   - {fileID: 8300000, guid: 2fbe97c83eb39466eb0784ca07108497, type: 3}
   - {fileID: 8300000, guid: dc429c0d255c14e2688ef215dc3e8c7d, type: 3}
+  radioAnim: {fileID: 0}
+  parts: {fileID: 0}
 --- !u!212 &212969440001572906
 SpriteRenderer:
   m_ObjectHideFlags: 1
