@@ -16,6 +16,7 @@ public class PhoneManager : MonoBehaviour {
 	//You instantiate this alert whenever you receive a new text message
 	public GameObject messageAlert;
 
+	private PlayerCharacterController pCC;
 	//The primary phone screen is the initial 4 options
 	public GameObject primaryPhoneScreen;
 		//the messages screen
@@ -60,6 +61,8 @@ public class PhoneManager : MonoBehaviour {
 	void Update () {
 
 		if(active){
+			
+			
 			if(primaryPhoneScreen.activeInHierarchy){
 				if(InputManager.ActiveDevice.Action1.WasPressed || Input.GetKeyDown(primaryButton)){
 					switch(mainIndex){
@@ -176,12 +179,14 @@ public class PhoneManager : MonoBehaviour {
 					ActivatePhone();
 				} else{
 					DeactivatePhone();
+			
 				}
 			}
 		} else{
 			if(Input.GetKeyDown(secondaryButton) || InputManager.ActiveDevice.Command.WasPressed){
 				//If the phone is not already active and you hit escape, open the phone
 				ActivatePhone();
+				
 			}
 		}	
 
@@ -218,6 +223,8 @@ public class PhoneManager : MonoBehaviour {
 
 	//When you close the pause menu, turn everything off!!
 	void DeactivatePhone(){
+		pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+		pCC.movementInputEnabled = true;
 		active = false;
 		//this stuff all needs a time delay
 		primaryPhoneScreen.SetActive(false);
@@ -228,6 +235,8 @@ public class PhoneManager : MonoBehaviour {
 
 	//When you open the pause menu, make sure to set certain things to true and to reset any indices
 	void ActivatePhone(){
+		pCC = GameObject.FindObjectOfType<PlayerCharacterController>();
+		pCC.movementInputEnabled = false;
 		active = true;
 		mainIndex = 0;
 		noteIndex = 0;
