@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class RoomTransition : MonoBehaviour {
 
-	public GameObject activeRoom;
-	public GameObject mainRoom;
-	public GameObject[] allRooms;
-	public GameObject[] nonMainRooms;
+	public Color normalColor;
+	public Color transparentColor;
+	public MeshRenderer[] stuffToMakeTransparent;
+	public Color[] originalColors;
 
-	Color roomDark;
-	Color roomLight;
-	Color roomTransparent;
+	public Vector3 cameraPos;
+	public Vector3 balconyPos;
 
 	// Use this for initialization
 	void Start () {
-		roomDark = new Color(1f,1f,1f,0.25f);
-		roomLight = new Color(1f,1f,1f,0.1f);
-		roomTransparent = new Color(1f,1f,1f,0f);
+		normalColor = new Color(1f,1f,1f,1f);
+		transparentColor = new Color(1f,1f,1f,0f);
 
-		ChangeRooms();
+		for(int i=0;i<stuffToMakeTransparent.Length;i++){
+			originalColors[i] = stuffToMakeTransparent[i].material.color;
+			stuffToMakeTransparent[i].material.color = new Color(originalColors[i].r,originalColors[i].g,originalColors[i].b,0f);
+		}
 	}
 	
 	// Update is called once per frame
@@ -29,63 +30,57 @@ public class RoomTransition : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if(other.tag == "Room"){
-			activeRoom = other.gameObject;
-			ChangeRooms();
+			RoomInfo rinfo = other.gameObject.GetComponent<RoomInfo>();
+			StartCoroutine(lightChange(normalColor,transparentColor));
+			StartCoroutine(cameraChange(Camera.main.transform.position,cameraPos));
+			//for(int i=0;i<rinfo.stuffToDeactivate.Length;i++){
+			//	rinfo.stuffToDeactivate[i].SetActive(false);
+			//}
 		}
 	}
 
 	void OnTriggerExit(Collider other){
 		if(other.tag == "Room"){
-			if(other.gameObject == mainRoom){
-				//nonMainRooms.SetActive(true);
-				for(int x=0;x<nonMainRooms.Length;x++){
-						StartCoroutine(changeRoomLighting(nonMainRooms[x].GetComponent<MeshRenderer>(),nonMainRooms[x].GetComponent<MeshRenderer>().material.color,roomDark,3f));;
-					}
-			}
+			RoomInfo rinfo = other.gameObject.GetComponent<RoomInfo>();
+			StartCoroutine(lightChange(transparentColor,normalColor));
+			StartCoroutine(cameraChange(cameraPos,balconyPos));
+			//for(int i=0;i<rinfo.stuffToDeactivate.Length;i++){
+			//	rinfo.stuffToDeactivate[i].SetActive(false);
+			//}
 		}
 	}
 
-	void ChangeRooms(){
-		for(int i=0;i<allRooms.Length;i++){
-			MeshRenderer rends = allRooms[i].GetComponent<MeshRenderer>();
-			if(!rends.enabled){
-					for(int x=0;x<nonMainRooms.Length;x++){
-						nonMainRooms[x].GetComponent<MeshRenderer>().enabled = true;
-						rends.material.color = new Color(1f,1f,1f,0f);
-					}
-			}
-			if(allRooms[i] != activeRoom){
-				//darken the room
-				if(activeRoom != mainRoom){
-					StartCoroutine(changeRoomLighting(rends,rends.material.color,roomDark,3f));
-				}
-			} else{
-				//brighten the room
-				StartCoroutine(changeRoomLighting(rends,rends.material.color,roomLight,3f));
-				if(activeRoom == mainRoom){
-					//turn off the non-main rooms
-					//nonMainRooms.SetActive(false);
-					for(int x=0;x<nonMainRooms.Length;x++){
-						StartCoroutine(changeRoomLighting(nonMainRooms[x].GetComponent<MeshRenderer>(),nonMainRooms[x].GetComponent<MeshRenderer>().material.color,roomTransparent,3f));;
-					}
-
-				}
-			}
-		}
-	}
-
-	private IEnumerator changeRoomLighting(MeshRenderer targ, Color startCol, Color endCol,float timeDelay){
+	IEnumerator lightChange(Color startColor, Color targetColor){
 		float elapsedTime = 0f;
-		//targ.enabled = true;
-		while(elapsedTime < timeDelay){
-			targ.material.color = Color.Lerp(startCol,endCol,elapsedTime/timeDelay);
+		float targTime = 1.2f;
+
+		//float startIntensity = lightSource.intensity;
+		while(elapsedTime < targTime){
 			elapsedTime += Time.deltaTime;
-			if(endCol == roomTransparent){
-				if(elapsedTime > 2.99f){
-					targ.enabled = false;
-				}
+			for(int x=0;x<stuffToMakeTransparent.Length;x++){
+				startColor = new Color(originalColors[x].r,originalColors[x].g,originalColors[x].b,startColor.a);
+				targetColor = new Color(originalColors[x].r,originalColors[x].g,originalColors[x].b,targetColor.a);
+				stuffToMakeTransparent[x].material.color = Color.Lerp(startColor, targetColor, (elapsedTime/targTime));
 			}
+
 			yield return null;
 		}
 	}
+
+	IEnumerator cameraChange(Vector3 startPos, Vector3 endPos){
+		float elapsedTime = 0f;
+		float targTime = 2f;
+		//float startIntensity = lightSource.intensity;
+		while(elapsedTime < targTime){
+			elapsedTime += Time.deltaTime;
+			//for(int x=0;x<stuffToMakeTransparent.Length;x++){
+			//stuffToMakeTransparent[x].material.color = Color.Lerp(startColor, targetColor, (elapsedTime/targTime));
+			//}
+
+			Camera.main.transform.position = Vector3.Lerp(startPos,endPos,(elapsedTime/targTime));
+
+			yield return null;
+		}
+	}
+
 }
