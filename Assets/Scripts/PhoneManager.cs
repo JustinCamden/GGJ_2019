@@ -145,11 +145,17 @@ public class PhoneManager : MonoBehaviour {
 							trueMessageList.Add(newMsg);
 					}
 				}
+				float scrollAmount = 0f;
+				if(trueMessageList.Count > 0){
+					float messageCount = trueMessageList.Count;
+					scrollAmount = 3 / messageCount;
+					print(scrollAmount);
+				}
 
 				if(Input.GetKey(KeyCode.W) || InputManager.ActiveDevice.LeftStickUp.IsPressed){
 
 					//scroll up
-					messagesScrollRect.verticalNormalizedPosition += 0.1f;
+					messagesScrollRect.verticalNormalizedPosition += scrollAmount;
 
 					if(messagesScrollRect.verticalNormalizedPosition > 1f){
 						messagesScrollRect.verticalNormalizedPosition = 1f;
@@ -158,7 +164,7 @@ public class PhoneManager : MonoBehaviour {
 				} else if(Input.GetKey(KeyCode.S) || InputManager.ActiveDevice.LeftStickDown.IsPressed){
 					
 					//scroll down
-					messagesScrollRect.verticalNormalizedPosition -= 0.1f;
+					messagesScrollRect.verticalNormalizedPosition -= scrollAmount;
 
 					if(messagesScrollRect.verticalNormalizedPosition < 0f){
 						messagesScrollRect.verticalNormalizedPosition = 0f;
@@ -283,11 +289,11 @@ public class PhoneManager : MonoBehaviour {
 	//Call this from anywhere to add in a newMessage Prefab
 	//Sorry to keep these as prefabs, could redo as something more robust. more similar to the notes system
 	public void AddMessage(GameObject newMessage){
-		if(messageList.Count > 2){
+		//if(messageList.Count > 2){
 			//Destroy(trueMessageList[0]);
 			//trueMessageList.RemoveAt(0);
-			messageList.RemoveAt(0);
-		}
+			//messageList.RemoveAt(0);
+		//}
 		messageList.Add(newMessage);
 		Instantiate(messageAlert,transform.position,Quaternion.identity);
 		//messagesScrollRect.verticalNormalizedPosition = 0f;
