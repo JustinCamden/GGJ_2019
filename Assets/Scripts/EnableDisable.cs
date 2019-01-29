@@ -16,9 +16,10 @@ public class EnableDisable : BaseInteraction {
 		
 		foreach (GameObject obj in toDisable)
 		{
+			
 			obj.SetActive(false);
 		}
-
+		//GetComponent<Collider>().enabled = false;
 		interactEnabled = false;
 	}
 }

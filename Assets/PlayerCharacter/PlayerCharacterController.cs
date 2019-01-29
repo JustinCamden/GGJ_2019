@@ -59,7 +59,7 @@ public class PlayerCharacterController : MonoBehaviour {
     bool fatJumping = false;
 
     // The currently overlapping interactables
-    List<Collider> overlappingInteractables;
+   public List<Collider> overlappingInteractables;
 
     // The currently selected interactable
     BaseInteraction selectedInteractable;
@@ -256,6 +256,16 @@ public class PlayerCharacterController : MonoBehaviour {
         if (PlayerInputManager.PlayerActions.interact.WasPressed && selectedInteractable && CanInteract())
         {
             selectedInteractable.TryInteract();
+            for(int i=0;i<overlappingInteractables.Count;i++){
+            if(selectedInteractable.gameObject.name == overlappingInteractables[i].gameObject.name){
+                EnableDisable overlap = overlappingInteractables[i].GetComponent<EnableDisable>();
+                for(int x=0;x<overlap.toDisable.Length;x++){
+                    if(overlap.toDisable[x].gameObject.name == selectedInteractable.gameObject.name){
+                        overlappingInteractables.RemoveAt(i);
+                    }
+                }
+            }
+            }
         }
     }
 
