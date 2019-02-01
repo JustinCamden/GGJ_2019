@@ -125,8 +125,9 @@ public class BaseInteraction : MonoBehaviour {
 	{
 		DialogueRunner.Instance.UIWindow.SetActive(true);
 		DialogueRunner.Instance.currentWindows = conversationWindows;
-		DialogueRunner.Instance.RunConversation();
 		DialogueRunner.Instance.currentWindow = 0;
+		DialogueRunner.Instance.RunConversation();
+		
 
 	}
 

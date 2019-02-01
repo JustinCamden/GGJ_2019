@@ -10,7 +10,7 @@ public class ToggleWindow : BaseInteraction
 
     //public GameObject blinds; - stretch goal 
     public GameObject window_1;
-    public bool windowIsOpen = false;
+    public bool windowIsOpen = true;
     public bool shouldPlayBeachLoop;
     public AudioSource beachSource;
     public Animator anim;
