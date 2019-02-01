@@ -21,6 +21,7 @@ public class PhoneManager : MonoBehaviour {
 	public GameObject primaryPhoneScreen;
 		//the messages screen
 		public GameObject secondaryMessages;
+		public ScrollRect messagesScrollRect;
 		//the notes screen
 		public GameObject secondaryNotes;
 		//resume doesn't bring up any other screens
@@ -36,6 +37,7 @@ public class PhoneManager : MonoBehaviour {
 	//Content Arrays
 	[Header("Place Content In Here")]
 	public List<GameObject> messageList = new List<GameObject>();
+	public List<GameObject> trueMessageList = new List<GameObject>();
 	public List<notesEntry> noteList = new List<notesEntry>();
 
 	[Header("Button Arrays")]
@@ -140,7 +142,34 @@ public class PhoneManager : MonoBehaviour {
 							newMsg.name = messageList[i].name;
 							newMsg.transform.localScale = new Vector3(1f,1f,1f);
 							newMsg.transform.SetParent(contentTarget.transform,false);
+							trueMessageList.Add(newMsg);
 					}
+				}
+				float scrollAmount = 0f;
+				if(trueMessageList.Count > 0){
+					float messageCount = trueMessageList.Count;
+					scrollAmount = 3 / messageCount;
+					print(scrollAmount);
+				}
+
+				if(Input.GetKey(KeyCode.W) || InputManager.ActiveDevice.LeftStickUp.IsPressed){
+
+					//scroll up
+					messagesScrollRect.verticalNormalizedPosition += scrollAmount;
+
+					if(messagesScrollRect.verticalNormalizedPosition > 1f){
+						messagesScrollRect.verticalNormalizedPosition = 1f;
+					}
+
+				} else if(Input.GetKey(KeyCode.S) || InputManager.ActiveDevice.LeftStickDown.IsPressed){
+					
+					//scroll down
+					messagesScrollRect.verticalNormalizedPosition -= scrollAmount;
+
+					if(messagesScrollRect.verticalNormalizedPosition < 0f){
+						messagesScrollRect.verticalNormalizedPosition = 0f;
+					}
+
 				}
 
 			} else if(secondaryExit.activeInHierarchy){
@@ -197,6 +226,7 @@ public class PhoneManager : MonoBehaviour {
 	public void OpenMessages(){
 		secondaryMessages.SetActive(true);
 		primaryPhoneScreen.SetActive(false);
+		messagesScrollRect.verticalNormalizedPosition = 0f;
 	}
 
 	public void OpenNotes(){
@@ -259,11 +289,15 @@ public class PhoneManager : MonoBehaviour {
 	//Call this from anywhere to add in a newMessage Prefab
 	//Sorry to keep these as prefabs, could redo as something more robust. more similar to the notes system
 	public void AddMessage(GameObject newMessage){
-		if(messageList.Count > 2){
-			messageList.RemoveAt(0);
-		}
+		//if(messageList.Count > 2){
+			//Destroy(trueMessageList[0]);
+			//trueMessageList.RemoveAt(0);
+			//messageList.RemoveAt(0);
+		//}
 		messageList.Add(newMessage);
 		Instantiate(messageAlert,transform.position,Quaternion.identity);
+		//messagesScrollRect.verticalNormalizedPosition = 0f;
+		StartCoroutine(scrollTimer());
 	}
 
 	//Call this from anywhere to add notes to the player's phone! They will be kept in the order that the player 'unlocks' them
@@ -272,6 +306,20 @@ public class PhoneManager : MonoBehaviour {
 		newNote.noteTitle = newNoteTitle;
 		newNote.noteContent = newNoteContent;
 		noteList.Add(newNote);
+	}
+
+	IEnumerator scrollTimer(){
+		float eTime = 0f;
+		/*while(eTime < 0.1f){
+			eTime += Time.deltaTime;
+
+			yield return null;
+		}
+		if(eTime >= 0.1f){
+			messagesScrollRect.verticalNormalizedPosition = 0f;
+		}*/
+		yield return new WaitForSeconds(0.1f);
+		messagesScrollRect.verticalNormalizedPosition = 0f;
 	}
 }
 

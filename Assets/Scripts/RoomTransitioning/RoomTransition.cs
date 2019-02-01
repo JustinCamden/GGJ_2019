@@ -11,6 +11,12 @@ public class RoomTransition : MonoBehaviour {
 
 	public Vector3 cameraPos;
 	public Vector3 balconyPos;
+	public Vector3 activePos;
+	Vector3 startPos;
+
+	public bool movingCamera = false;
+	float eTime = 0f;
+	float maxTime = 1f;
 
 	// Use this for initialization
 	void Start () {
@@ -25,14 +31,19 @@ public class RoomTransition : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(Vector3.Distance(Camera.main.transform.position,activePos) > 0.01f){
+			if (eTime < maxTime){
+				eTime += Time.deltaTime;
+				Camera.main.transform.position = Vector3.Lerp(startPos,activePos,(eTime/maxTime));
+			}
+		}
 	}
 
 	void OnTriggerEnter(Collider other){
 		if(other.tag == "Room"){
 			RoomInfo rinfo = other.gameObject.GetComponent<RoomInfo>();
 			StartCoroutine(lightChange(normalColor,transparentColor));
-			StartCoroutine(cameraChange(Camera.main.transform.position,cameraPos));
+			cameraChange(cameraPos);
 			//for(int i=0;i<rinfo.stuffToDeactivate.Length;i++){
 			//	rinfo.stuffToDeactivate[i].SetActive(false);
 			//}
@@ -43,7 +54,7 @@ public class RoomTransition : MonoBehaviour {
 		if(other.tag == "Room"){
 			RoomInfo rinfo = other.gameObject.GetComponent<RoomInfo>();
 			StartCoroutine(lightChange(transparentColor,normalColor));
-			StartCoroutine(cameraChange(cameraPos,balconyPos));
+			cameraChange(balconyPos);
 			//for(int i=0;i<rinfo.stuffToDeactivate.Length;i++){
 			//	rinfo.stuffToDeactivate[i].SetActive(false);
 			//}
@@ -67,20 +78,13 @@ public class RoomTransition : MonoBehaviour {
 		}
 	}
 
-	IEnumerator cameraChange(Vector3 startPos, Vector3 endPos){
-		float elapsedTime = 0f;
-		float targTime = 2f;
+	void cameraChange(Vector3 endPos){
+		eTime = 0f;
+		maxTime = 1f;
+		startPos = Camera.main.transform.position;
+		activePos = endPos;
 		//float startIntensity = lightSource.intensity;
-		while(elapsedTime < targTime){
-			elapsedTime += Time.deltaTime;
-			//for(int x=0;x<stuffToMakeTransparent.Length;x++){
-			//stuffToMakeTransparent[x].material.color = Color.Lerp(startColor, targetColor, (elapsedTime/targTime));
-			//}
-
-			Camera.main.transform.position = Vector3.Lerp(startPos,endPos,(elapsedTime/targTime));
-
-			yield return null;
-		}
+		
 	}
 
 }
