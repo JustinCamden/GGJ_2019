@@ -42,7 +42,7 @@ public class RoomTransition : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if(other.tag == "Room"){
 			RoomInfo rinfo = other.gameObject.GetComponent<RoomInfo>();
-			StartCoroutine(lightChange(normalColor,transparentColor));
+			StartCoroutine(lightChange(transparentColor));
 			cameraChange(cameraPos);
 			//for(int i=0;i<rinfo.stuffToDeactivate.Length;i++){
 			//	rinfo.stuffToDeactivate[i].SetActive(false);
@@ -53,7 +53,7 @@ public class RoomTransition : MonoBehaviour {
 	void OnTriggerExit(Collider other){
 		if(other.tag == "Room"){
 			RoomInfo rinfo = other.gameObject.GetComponent<RoomInfo>();
-			StartCoroutine(lightChange(transparentColor,normalColor));
+			StartCoroutine(lightChange(normalColor));
 			cameraChange(balconyPos);
 			//for(int i=0;i<rinfo.stuffToDeactivate.Length;i++){
 			//	rinfo.stuffToDeactivate[i].SetActive(false);
@@ -61,7 +61,7 @@ public class RoomTransition : MonoBehaviour {
 		}
 	}
 
-	IEnumerator lightChange(Color startColor, Color targetColor){
+	IEnumerator lightChange(Color targetColor){
 		float elapsedTime = 0f;
 		float targTime = 1.2f;
 
@@ -69,7 +69,7 @@ public class RoomTransition : MonoBehaviour {
 		while(elapsedTime < targTime){
 			elapsedTime += Time.deltaTime;
 			for(int x=0;x<stuffToMakeTransparent.Length;x++){
-				startColor = new Color(originalColors[x].r,originalColors[x].g,originalColors[x].b,startColor.a);
+				Color startColor = new Color(stuffToMakeTransparent[x].material.color.r,stuffToMakeTransparent[x].material.color.g,stuffToMakeTransparent[x].material.color.b,stuffToMakeTransparent[x].material.color.a);
 				targetColor = new Color(originalColors[x].r,originalColors[x].g,originalColors[x].b,targetColor.a);
 				stuffToMakeTransparent[x].material.color = Color.Lerp(startColor, targetColor, (elapsedTime/targTime));
 			}
